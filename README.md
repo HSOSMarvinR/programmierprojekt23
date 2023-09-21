@@ -19,10 +19,12 @@ Der Nutzer soll darüber hinaus die Möglichkeit haben, das Diagramm herunterzul
 
 ## Technologien
 
-| Technologie   | Nutzen        |
-| ------------- | ------------- |
-| Angular       | Frontend      |
-|               |               |
+| Technologie   | Nutzen             |
+| ------------- | -------------------|
+| Node.js       | Webserver          |
+| Angular       | Frontend           |
+| JavaScript    | Frontend           |
+| ?             | Diagrammerstellung |
 
 ## Projektstatus
 
