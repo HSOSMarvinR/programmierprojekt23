@@ -23,7 +23,7 @@ Der Nutzer soll darüber hinaus die Möglichkeit haben, das Diagramm herunterzul
 | ------------- | -------------------|
 | Node.js       | Webserver          |
 | Angular       | Frontend           |
-| JavaScript    | Frontend           |
+| Typescript    | Frontend           |
 | ?             | Diagrammerstellung |
 
 ## Projektstatus
