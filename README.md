@@ -24,7 +24,8 @@ Der Nutzer soll darüber hinaus die Möglichkeit haben, das Diagramm herunterzul
 | Node.js       | Webserver          |
 | Angular       | Frontend           |
 | Typescript    | Frontend           |
-| ?             | Diagrammerstellung |
+| chart.js      | Diagrammerstellung |
+| PrimeNG       | UI Kit             |
 
 ## Projektstatus
 
