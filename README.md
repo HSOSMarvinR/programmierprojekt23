@@ -27,6 +27,8 @@ Der Nutzer soll darüber hinaus die Möglichkeit haben, das Diagramm herunterzul
 | chart.js      | Diagrammerstellung |
 | PrimeNG       | UI Kit             |
 
+Siehe PrimeNG Doku und Komponenten hier: https://primeng.org/installation
+
 ## Projektstatus
 
 :yellow_circle:	 In Arbeit
