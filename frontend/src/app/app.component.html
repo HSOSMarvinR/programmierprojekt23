@@ -1,15 +1,9 @@
+<app-header></app-header>
 
-<app-header-menue></app-header-menue>
 <br>
-<div style="text-align:center">
-<h1>
-  Willkommen zum {{ title }}!
-</h1>
-
-</div>
+<div class="flex-container">
+    <div class="flex-item"><app-info-panel></app-info-panel></div>
+    <div class="flex-item"><app-charts></app-charts></div>
+  </div>
 <br>
 <br>
-<app-data-menue></app-data-menue>
-<app-visualize></app-visualize>
-
-<router-outlet></router-outlet>

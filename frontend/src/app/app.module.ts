@@ -3,20 +3,40 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderMenueComponent } from './header-menue/header-menue.component';
-import { DataMenueComponent } from './data-menue/data-menue.component';
-import { VisualizeComponent } from './visualize/visualize.component';
+
+
+import { ToolbarModule } from 'primeng/toolbar';
+import { HeaderComponent } from './header/header.component';
+import { ButtonModule } from 'primeng/button';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { InfoPanelComponent } from './info-panel/info-panel.component';
+import { CardModule } from 'primeng/card';
+import { ChartModule } from 'primeng/chart';
+import { ChartsComponent } from './charts/charts.component';
+import { FileUploadModule } from 'primeng/fileupload';
+import { MessagesModule } from 'primeng/messages';
+import { ToastModule } from 'primeng/toast';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderMenueComponent,
-    DataMenueComponent,
-    VisualizeComponent
+    HeaderComponent,
+    InfoPanelComponent,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ButtonModule,
+    SplitButtonModule,
+    CardModule,
+    ChartModule,
+    FileUploadModule,
+    MessagesModule,
+    ToolbarModule,
+    ToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]

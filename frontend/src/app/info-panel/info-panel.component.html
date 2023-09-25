@@ -1,0 +1,25 @@
+<div class="card flex justify-content-center " style="float: left;width: 50%;">
+    <p-card header="K-Means Clustering">
+        <p class="m-0">
+            Auf dieser Seite haben Sie die Möglichkeit, ein K-Means Clustering Ihrer Daten durchzuführen.
+        </p>
+
+        <div class="card flex justify-content-center" >
+            <p-toast></p-toast>
+            <p-fileUpload mode="basic" chooseLabel="Upload File" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" ></p-fileUpload>
+        </div>        
+        <div class="card flex justify-content-center">
+            &nbsp;
+            <p-toast></p-toast>
+            <p-splitButton label="Download" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-raised p-button-success mr-2 mb-2"></p-splitButton>
+        </div>
+    
+    </p-card>
+</div>
+
+ 
+   
+    
+
+   
+
