@@ -13,7 +13,7 @@ Der Nutzer soll darüber hinaus die Möglichkeit haben, das Diagramm herunterzul
 - Frage: K-Means oder Entscheidungsbäume?
    - K-Means
 - Frage: Welche Dateiformate als Input?
-   - ...
+   - Zunächst nur CSV und XLSX. Je nach Aufwand könnten später weitere hinzugefügt werden.
 
 ## Funktionen
 
