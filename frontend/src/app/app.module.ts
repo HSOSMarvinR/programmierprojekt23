@@ -16,6 +16,8 @@ import { ChartsComponent } from './charts/charts.component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
+import { ManhattanDistanceComponent } from './manhattan-distance/manhattan-distance.component';
+import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-distance.component';
 
 
 
@@ -24,7 +26,9 @@ import { ToastModule } from 'primeng/toast';
     AppComponent,
     HeaderComponent,
     InfoPanelComponent,
-    ChartsComponent
+    ChartsComponent,
+    ManhattanDistanceComponent,
+    EuclidianDistanceComponent
   ],
   imports: [
     BrowserModule,
