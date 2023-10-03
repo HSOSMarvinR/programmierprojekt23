@@ -1,18 +1,35 @@
 <div class="card flex justify-content-center " style="float: left;width: 50%;">
+
     <p-card header="K-Means Clustering">
+
         <p class="m-0">
-            Auf dieser Seite haben Sie die Möglichkeit, ein K-Means Clustering Ihrer Daten durchzuführen.
+            Auf dieser Seite hast du die Möglichkeit, ein K-Means Clustering Ihrer Daten durchzuführen.<br>
+            Lade dazu über den Upload-Button eine CSV oder XLSX Datei hoch.
         </p>
 
-        <div class="card flex justify-content-center" >
-            <p-toast></p-toast>
-            <p-fileUpload mode="basic" chooseLabel="Upload File" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" ></p-fileUpload>
-        </div>        
+
+        <p-toast></p-toast>
+        <!--Die URL muss ersetzt werden durch die URL an die die hochgeladene Datei gesendet werden soll im Backend oder bei uns.-->
+        <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)"
+            [multiple]="false" accept="image/png, text/csv, application/json, application/vnd.ms-excel">
+
+            <ng-template pTemplate="content">
+                <div class="py-3"><br>Drag & Drop oder Datei auswählen</div>
+                <ul *ngIf="uploadedFiles.length">
+                    <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                </ul>
+            </ng-template>
+        </p-fileUpload>
+
+        <br>
+        <p class="m-1">
+            Bitte wähle eine Normalisierungs-Methode aus.
+        </p>
         <div class="card flex justify-content-center">
-            &nbsp;
-            <p-toast></p-toast>
-            <p-splitButton label="Download" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-raised p-button-success mr-2 mb-2"></p-splitButton>
+            <p-dropdown [options]="normalisierung" [(ngModel)]="selectedNorm" optionLabel="name"
+                placeholder="Bitte auswählen"></p-dropdown>
         </div>
+
 
         <br>
         <div>
@@ -22,9 +39,24 @@
     </p-card>
 </div>
 
- 
-   
+
+        <br>
+        <p class="m-1">
+            Aktiviere den Button, wenn eine Distanz berechnet werden soll.
+        </p>
+        <div class="card flex justify-content-center">
+            <p-inputSwitch [(ngModel)]="checked" (onChange)="toggleSelectButton()"></p-inputSwitch>
+        </div>
+        <br>
+        <div class="card flex justify-content-center">
+            <form [formGroup]="formGroup">
+                <p-selectButton *ngIf="showSelectButton" [options]="stateOptions" formControlName="value"
+                    optionLabel="label" optionValue="value"></p-selectButton>
+            </form>
+        </div>
+        <p-button label="Berechnung starten..." icon="pi pi-telegram"
+            styleClass="p-button-raised p-button-help"></p-button>
+    </p-card>
     
 
-   
-
+</div>

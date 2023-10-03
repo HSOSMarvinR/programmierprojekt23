@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,9 +21,18 @@ import { ChartsComponent } from './charts/charts.component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
+
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { DropdownModule } from 'primeng/dropdown';
+import { ImageModule } from 'primeng/image';
+
 import { ManhattanDistanceComponent } from './manhattan-distance/manhattan-distance.component';
 import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-distance.component';
 
+
+import { ManhattanDistanceComponent } from './manhattan-distance/manhattan-distance.component';
+import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-distance.component';
 
 
 @NgModule({
@@ -32,6 +46,9 @@ import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-dista
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ButtonModule,
     SplitButtonModule,
@@ -40,7 +57,11 @@ import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-dista
     FileUploadModule,
     MessagesModule,
     ToolbarModule,
-    ToastModule
+    ToastModule,
+    SelectButtonModule,
+    InputSwitchModule,
+    DropdownModule,
+    ImageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
