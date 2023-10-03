@@ -31,9 +31,6 @@ import { ManhattanDistanceComponent } from './manhattan-distance/manhattan-dista
 import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-distance.component';
 
 
-import { ManhattanDistanceComponent } from './manhattan-distance/manhattan-distance.component';
-import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-distance.component';
-
 
 @NgModule({
   declarations: [

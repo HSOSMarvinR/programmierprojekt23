@@ -63,6 +63,7 @@ export class InfoPanelComponent {
       { name: 'Max ABS Scaler', code: 'MaxABS' },
       { name: 'Robust Scaler', code: 'Robust' },
       { name: 'Standart Scaler', code: 'Standart' },
+      { name: 'Z-Normalisierung', code: 'znorm' },
     ]
   }
 
