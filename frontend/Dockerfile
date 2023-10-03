@@ -2,7 +2,10 @@
 
 FROM node:18-alpine
 WORKDIR /app
+COPY package*.json ./
+RUN npm ci
 COPY . .
-RUN yarn install --production
-CMD ["node", "src/index.js"]
-EXPOSE 3000
+RUN npm run build --prod
+EXPOSE 4200
+CMD ["npm", "start"]
+
