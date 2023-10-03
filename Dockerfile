@@ -9,4 +9,3 @@ COPY . .
 RUN npm run build --prod --legacy-peer-deps
 EXPOSE 3000
 CMD ["npm", "start"]
-
