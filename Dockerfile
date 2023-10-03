@@ -5,7 +5,6 @@ RUN mkdir /project
 WORKDIR /project
 COPY package*.json ./
 RUN npm ci --legacy-peer-deps
-COPY . .
 RUN npm run build --prod --legacy-peer-deps
 EXPOSE 8080
 CMD ["npm", "start"]
