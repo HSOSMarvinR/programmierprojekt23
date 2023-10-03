@@ -21,13 +21,14 @@ import { ChartsComponent } from './charts/charts.component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
+
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { DropdownModule } from 'primeng/dropdown';
 import { ImageModule } from 'primeng/image';
 
-
-
+import { ManhattanDistanceComponent } from './manhattan-distance/manhattan-distance.component';
+import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-distance.component';
 
 
 import { ManhattanDistanceComponent } from './manhattan-distance/manhattan-distance.component';
@@ -39,7 +40,9 @@ import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-dista
     AppComponent,
     HeaderComponent,
     InfoPanelComponent,
-    ChartsComponent
+    ChartsComponent,
+    ManhattanDistanceComponent,
+    EuclidianDistanceComponent
   ],
   imports: [
     BrowserModule,
