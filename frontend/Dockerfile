@@ -1,7 +1,8 @@
 # syntax=docker/dockerfile:1
 
 FROM node:18-alpine
-WORKDIR /src/app
+RUN mkdir /project
+WORKDIR /project
 COPY package*.json ./
 RUN npm ci --legacy-peer-deps
 COPY . .
