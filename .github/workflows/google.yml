@@ -22,7 +22,7 @@ env:
   GKE_CLUSTER: cluster-1    # TODO: update to cluster name
   GKE_ZONE: europe-west10-a   # TODO: update to cluster zone
   DEPLOYMENT_NAME: main # TODO: update to deployment name
-  REPOSITORY: frontend # TODO: update to Artifact Registry docker repository
+  REPOSITORY: hello # TODO: update to Artifact Registry docker repository
   IMAGE: static-site
 
 jobs:
