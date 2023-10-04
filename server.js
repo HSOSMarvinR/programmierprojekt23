@@ -14,5 +14,4 @@ app.listen(port, () => {
   console.log(`Server listening on the port::${port}`);
 });
 
-
-// Hier muss irgendwie eingestellt werden, dass nicht nur die index.html angezeigt wird sondern auch der ganze Stuff aus dem src-Ordner.
+// Hier muss irgendwie eingestellt werden, dass nicht nur die index.html angezeigt wird sondern auch der ganze Stuff aus dem src-Ordner!
