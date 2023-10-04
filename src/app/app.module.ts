@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from "@angular/common/http";  //Client Module für Http Service Api
 
 
 
@@ -58,7 +59,8 @@ import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-dista
     SelectButtonModule,
     InputSwitchModule,
     DropdownModule,
-    ImageModule
+    ImageModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

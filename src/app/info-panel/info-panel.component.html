@@ -47,9 +47,10 @@
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
                 <p-selectButton *ngIf="showSelectButton" [options]="stateOptions" formControlName="value"
-                    optionLabel="label" optionValue="value"></p-selectButton>
+                    optionLabel="label" optionValue="value" class="calcButton"></p-selectButton>
             </form>
         </div>
+        <br>
         <p-button label="Berechnung starten..." icon="pi pi-telegram"
             styleClass="p-button-raised p-button-help"></p-button>
     </p-card>
