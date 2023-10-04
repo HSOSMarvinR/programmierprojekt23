@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-charts',
   templateUrl: './charts.component.html',
   styleUrls: ['./charts.component.css']
 })
-export class ChartsComponent {
+export class ChartsComponent{
+    @ViewChild('chartContainer') chartContainer!: ElementRef;
   data: any;
   options: any;
 
@@ -67,4 +68,26 @@ export class ChartsComponent {
         }
     };
 }
+downloadChart() {
+    const chartContainerElement = this.chartContainer.nativeElement;
+
+    html2canvas(chartContainerElement).then((canvas) => {
+      const downloadLink = document.createElement('a');
+
+      downloadLink.href = canvas.toDataURL('image/jpeg');
+
+      downloadLink.download = 'chart.jpg';
+
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+
+      document.body.removeChild(downloadLink);
+    });
+  }
+
 }
+
+  
+  
+  
+  
