@@ -7,5 +7,5 @@ COPY package*.json ./
 RUN npm ci --legacy-peer-deps
 COPY . .
 EXPOSE 8080
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
 
