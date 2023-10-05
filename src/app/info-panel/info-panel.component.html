@@ -10,8 +10,8 @@
 
         <p-toast></p-toast>
         <!--Die URL muss ersetzt werden durch die URL an die die hochgeladene Datei gesendet werden soll im Backend oder bei uns.-->
-        <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)"
-            [multiple]="false" accept="image/png, text/csv, application/json, application/vnd.ms-excel">
+        <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" [fileLimit]="1" (onUpload)="onUpload($event)"
+            [multiple]="true" accept="image/png, text/csv, application/json, application/vnd.ms-excel">
 
             <ng-template pTemplate="content">
                 <div class="py-3"><br>Drag & Drop oder Datei auswählen</div>
