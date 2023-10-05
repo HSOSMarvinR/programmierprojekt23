@@ -23,7 +23,7 @@
 
         <br>
         <p class="m-1">
-            Bitte wähle eine Normalisierungs-Methode aus.
+            Bitte wähle eine Normalisierungs-Methode.
         </p>
         <div class="card flex justify-content-center">
             <p-dropdown [options]="normalisierung" [(ngModel)]="selectedNorm" optionLabel="name"
@@ -38,15 +38,12 @@
 
         <br>
         <p class="m-1">
-            Aktiviere den Button, wenn eine Distanz berechnet werden soll.
+            Bitte wähle eine Distanz-Matrix.
         </p>
-        <div class="card flex justify-content-center">
-            <p-inputSwitch [(ngModel)]="checked" (onChange)="toggleSelectButton()"></p-inputSwitch>
-        </div>
-        <br>
+        
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-selectButton *ngIf="showSelectButton" [options]="stateOptions" formControlName="value"
+                <p-selectButton [options]="stateOptions" formControlName="value"
                     optionLabel="label" optionValue="value" class="calcButton"></p-selectButton>
             </form>
         </div>

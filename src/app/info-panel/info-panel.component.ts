@@ -59,13 +59,6 @@ export class InfoPanelComponent {
   normalisierung: Normalisierung[] | undefined;
   selectedNorm: Normalisierung | undefined;
 
-  checked: boolean = false;
-  showSelectButton: boolean = false;
-
-  toggleSelectButton() {
-    this.showSelectButton = !this.showSelectButton; // Lässt den Select-Button der Distanz erscheinen oder verschwinden.
-  }
-
   formGroup!: FormGroup;
 
   stateOptions: any[] = [
@@ -79,12 +72,8 @@ export class InfoPanelComponent {
     });
     this.normalisierung = [
       { name: 'Min/Max Normalisierung', code: 'MinMax' },
-      { name: 'Max ABS Scaler', code: 'MaxABS' },
       { name: 'Robust Scaler', code: 'Robust' },
-      { name: 'Standart Scaler', code: 'Standart' },
       { name: 'Z-Normalisierung', code: 'znorm' },
     ]
   }
-
-
 }
