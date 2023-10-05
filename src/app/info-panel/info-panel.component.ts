@@ -17,6 +17,8 @@ interface Normalisierung {
   code: string;
 }
 
+let file = null;
+
 @Component({
   selector: 'app-info-panel',
   templateUrl: './info-panel.component.html',
@@ -26,26 +28,22 @@ interface Normalisierung {
 
 
 export class InfoPanelComponent {
-
+  
   uploadedFiles: any[] = [];
   constructor(private messageService: MessageService, private backend: HttpClient) { }
 
   onClickPush(){
     
-    let output = this.backend.get("https://programmierprojekt-ujgmkp4tpq-ez..run.qpp/kmeans/csv?k=X");
-    //output = output as String;
-    alert(output);
-    //let output = this.backend.pushData();
-    
-    //alert(output);
+    file = this.backend.patch("https://programmierprojekt-ujgmkp4tpq-ez..run.qpp/kmeans/csv?k=X", 5);
+    alert(file);
   }
 
-  /*onClickGet(){
+  onClickGet(){
     
-    let output = this.backend.getData();
+    let output = this.backend.get("https://programmierprojekt-ujgmkp4tpq-ez..run.qpp/kmeans/csv?k=X");
     
     alert(output);
-  }*/
+  }
 
   onUpload(event:any) {
     for (let file of event.files) {
