@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 
 
 import { ToolbarModule } from 'primeng/toolbar';
-import { HeaderComponent } from './header/header.component';
 import { ButtonModule } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { InfoPanelComponent } from './info-panel/info-panel.component';
@@ -36,7 +35,6 @@ import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-dista
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     InfoPanelComponent,
     ChartsComponent,
     ManhattanDistanceComponent,
