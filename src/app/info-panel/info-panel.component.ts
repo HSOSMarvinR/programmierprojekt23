@@ -55,10 +55,10 @@ export class InfoPanelComponent {
   }
 };
 
-  onClickGet() {
+  /*onClickGet() {
     let output = this.backend.get("https://programmierprojekt-ujgmkp4tpq-ez..run.qpp/kmeans/csv?k=X");
     alert(output);
-  }
+  }*/
 
   // Methode, die aufgerufen wird, wenn eine Datei hochgeladen wird. Jede hochgeladene Datei wird in das Array uploadedFiles gepusht.
   onUpload(event: any) {
