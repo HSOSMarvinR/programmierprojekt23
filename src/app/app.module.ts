@@ -26,11 +26,12 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { DropdownModule } from 'primeng/dropdown';
 import { ImageModule } from 'primeng/image';
+import { InputNumberModule } from 'primeng/inputnumber';
+
+
 
 import { ManhattanDistanceComponent } from './manhattan-distance/manhattan-distance.component';
 import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-distance.component';
-
-
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-dista
     InputSwitchModule,
     DropdownModule,
     ImageModule,
-    HttpClientModule
+    HttpClientModule,
+    InputNumberModule
   ],
   providers: [],
   bootstrap: [AppComponent]

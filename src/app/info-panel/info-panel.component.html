@@ -16,7 +16,12 @@
             <ng-template pTemplate="content">
                 <div class="py-3"><br>Drag & Drop oder Datei auswählen</div>
                 <ul *ngIf="uploadedFiles.length">
-                    <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                    <div class="py-4"><br>Upload Historie:</div>
+                    <br>
+                    <li *ngFor="let file of uploadedFilesData">{{ file.name }} - {{ file.size }} bytes</li>
+                    <br>
+                    <p-button (onClick)="onClickHistory()" label="Historie löschen" icon="pi pi-times"
+                    styleClass="p-button-rounded p-button-danger" ></p-button>
                 </ul>
             </ng-template>
         </p-fileUpload>
@@ -32,8 +37,12 @@
 
 
         <br>
-        <div>
-            <input class="param" type="number" placeholder="K">
+        <p class="m-2">
+            Bitte wähle eine deinen Wert für K.
+        </p>
+        <div class="flex-auto">
+            <label class="mb-2 block font-bold" for="minmax-buttons"></label>
+            <p-inputNumber [(ngModel)]="kvalue" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="1" placeholder="K = 5"> </p-inputNumber>
         </div>
 
         <br>
@@ -42,14 +51,14 @@
         </p>
         
         <div class="card flex justify-content-center">
-            <form [formGroup]="formGroup">
-                <p-selectButton [options]="stateOptions" formControlName="value"
-                    optionLabel="label" optionValue="value" class="calcButton"></p-selectButton>
-            </form>
+        
+                <p-selectButton [options]="selectedDistanz" [(ngModel)]="distanz" optionLabel="label" optionValue="value"></p-selectButton>
+            
         </div>
+        
         <br>
         <p-button (onClick)="onClickPush()" label="Berechnung starten..." icon="pi pi-telegram"
-            styleClass="p-button-raised p-button-help"></p-button>
+            styleClass="p-button-raised p-button-help" [disabled]="berechnungOnOff"></p-button>
     </p-card>
     
 
