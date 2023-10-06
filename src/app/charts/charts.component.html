@@ -1,14 +1,17 @@
-<div class="card flex justify-content-center " style="float: left;width: 50%;">
-    <p-card header="Ergebnis" [style]="{ height: '800px' }">
+<div class="card flex justify-content-center ">
+    <header>
+        <h1>Ergebnis  </h1>
+    </header>
+   
         <div #chartContainer>
             <p class="m-0">
             <p-chart id="mychart" type="line" [data]="data" [options]="options"></p-chart>
             <br>
-            
+            <p-button label="Download JPEG" styleClass="p-button-rounded p-button-outlined p-button-success p-button-raised"
+            icon="pi pi-download" (onClick)="downloadChart()" ></p-button>
             </p>
         </div>
-        <br>
         
-        <p-button label="Download Diagramm" styleClass="p-button-rounded p-button-secondary p-button-raised"
-        icon="pi pi-download" (onClick)="downloadChart()"></p-button>
-    </p-card>
+        
+       
+    
