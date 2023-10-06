@@ -1,5 +1,5 @@
 <div class="card flex justify-content-center " style="float: left;width: 50%;">
-    <p-card header="Ergebnis">
+    <p-card header="Ergebnis" [style]="{ height: '800px' }">
         <div #chartContainer>
             <p class="m-0">
             <p-chart id="mychart" type="line" [data]="data" [options]="options"></p-chart>
