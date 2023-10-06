@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { ApiService } from "./api.service";
 
 import { HttpClient } from "@angular/common/http";  //Http Client für Api
 
@@ -24,7 +25,12 @@ let file = null;
 
 export class InfoPanelComponent {
 
-  constructor(private messageService: MessageService, private backend: HttpClient) { }
+  fileToUpload: File | null = null;
+
+  constructor(private messageService: MessageService, private api: ApiService) { }
+
+
+
 
   // Array vom Type any wird initial erstellt, wo die hochgeladenen Files später reingeschrieben werden.
   uploadedFilesData: any[] = [];
@@ -43,10 +49,10 @@ export class InfoPanelComponent {
       this.messageService.add({ severity: 'error', summary: 'Fehler', detail: 'Normalisierung auswählen!' });
     } else {
     if (this.kvalue) {
-      file = this.backend.patch("https://programmierprojekt-ujgmkp4tpq-ez..run.qpp/kmeans/csv?k=X", this.kvalue);
+      file = this.api.pushData(this.kvalue);
     } else {
       this.kvalue = 5;
-      file = this.backend.patch("https://programmierprojekt-ujgmkp4tpq-ez..run.qpp/kmeans/csv?k=X", 5);
+      file = this.api.pushData(5);
     };
     alert("API Response: " + file);
     alert("Kvalue: " + this.kvalue)
@@ -92,7 +98,7 @@ export class InfoPanelComponent {
   ];
 
   // onInit = der Button zeigt initial die Manhattan Distanz als Auswahl an und setzt die FormControl deshalb auf den key "man".
-  ngOnInit() {
+  ngOnInit(): void {
     // normalisierung wird mit den Auswahlmöglichkeiten gefüllt.
     this.normalisierung = [
       { name: 'Min/Max Normalisierung', code: 'MinMax' },
@@ -101,6 +107,35 @@ export class InfoPanelComponent {
     ]
     this.berechnungOnOff = true;
   }
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+  }
+
+  uploadFile() {
+    if (this.fileToUpload) {
+      this.api.uploadFile(this.fileToUpload).subscribe(
+        (response) => {
+          console.log('File uploaded and received response:', response);
+          alert(response);
+        },
+        (error) => {
+          console.error('File upload failed:', error);
+          alert(error);
+        }
+      );
+
+  /*uploadFile() {
+    if (this.fileToUpload) {
+      this.api.uploadFile(this.fileToUpload.subscribe((response) => {
+        console.log('Datei hochgeladen und Antwort erhalten', response);
+      },
+      (error) => {
+      console.log('Hochladen der Datei fehlgeschlagen:', error);
+    });*/
+
+  }
+}
 
 
 
