@@ -6,3 +6,16 @@ input[type=number] {
     font-family:inherit;
     font-size: inherit;
   }
+
+  .flex-container {
+    display: flex;
+    align-items: center;
+  }
+  .flex-item-1 {
+    padding-top: 10px;
+
+  }
+  .flex-item-2 {
+    padding-top: 10px;
+    margin-inline-start: 10px;
+  }

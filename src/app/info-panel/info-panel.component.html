@@ -10,8 +10,9 @@
 
         <p-toast></p-toast>
         <!--Die URL muss ersetzt werden durch die URL an die die hochgeladene Datei gesendet werden soll im Backend oder bei uns.-->
-        <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" [fileLimit]="1" (onUpload)="onUpload($event)"
-            [multiple]="true" accept="image/png, text/csv, application/json, application/vnd.ms-excel">
+        <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" [fileLimit]="1"
+            (onUpload)="onUpload($event)" [multiple]="true"
+            accept="image/png, text/csv, application/json, application/vnd.ms-excel">
 
             <ng-template pTemplate="content">
                 <div class="py-3"><br>Drag & Drop oder Datei auswählen</div>
@@ -21,7 +22,7 @@
                     <li *ngFor="let file of uploadedFilesData">{{ file.name }} - {{ file.size }} bytes</li>
                     <br>
                     <p-button (onClick)="onClickHistory()" label="Historie löschen" icon="pi pi-times"
-                    styleClass="p-button-rounded p-button-danger" ></p-button>
+                        styleClass="p-button-rounded p-button-danger"></p-button>
                 </ul>
             </ng-template>
         </p-fileUpload>
@@ -42,24 +43,35 @@
         </p>
         <div class="flex-auto">
             <label class="mb-2 block font-bold" for="minmax-buttons"></label>
-            <p-inputNumber [(ngModel)]="kvalue" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="1" placeholder="K = 5"> </p-inputNumber>
+            <p-inputNumber [(ngModel)]="kvalue" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="1"
+                placeholder="K = 5"> </p-inputNumber>
         </div>
 
         <br>
         <p class="m-1">
             Bitte wähle eine Distanz-Matrix.
         </p>
-        
+
         <div class="card flex justify-content-center">
-        
-                <p-selectButton [options]="selectedDistanz" [(ngModel)]="distanz" optionLabel="label" optionValue="value"></p-selectButton>
-            
+
+            <p-selectButton [options]="selectedDistanz" [(ngModel)]="distanz" optionLabel="label"
+                optionValue="value"></p-selectButton>
+
         </div>
-        
         <br>
+        <div class="flex-container">
         <p-button (onClick)="onClickPush()" label="Berechnung starten..." icon="pi pi-telegram"
-            styleClass="p-button-raised p-button-help" [disabled]="berechnungOnOff"></p-button>
+            styleClass="p-button-raised p-button-help" [disabled]="berechnungOnOff" class="flex-item-1"></p-button>
+            <br>
+            <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary" class="flex-item-2"></p-checkbox>
+
+            <p class="flex-item-2">
+                Lokale Berechnung 
+            </p>
+        </div>
     </p-card>
-    
+
+
+
 
 </div>

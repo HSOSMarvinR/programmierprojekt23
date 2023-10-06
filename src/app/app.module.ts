@@ -27,6 +27,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { DropdownModule } from 'primeng/dropdown';
 import { ImageModule } from 'primeng/image';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { CheckboxModule } from 'primeng/checkbox';
+
 
 
 
@@ -60,7 +62,8 @@ import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-dista
     DropdownModule,
     ImageModule,
     HttpClientModule,
-    InputNumberModule
+    InputNumberModule,
+    CheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -33,6 +33,9 @@ export class InfoPanelComponent {
   // Variabel, die von der Eingabe des K gefüllt wird.
   kvalue: number | undefined;
 
+  checked: boolean = false;
+
+
   // Methode des "Berechnung starten..." Buttons. Die Datei aus file wird an die API gesendet. Wenn für K etwas eingegeben wurde,
   // wird dies als Wert für die API genutzt. Wurde K freigelassen, wird standardmäßig 5 genutzt.
   onClickPush() {
@@ -96,7 +99,9 @@ export class InfoPanelComponent {
       { name: 'Robust Scaler', code: 'Robust' },
       { name: 'Z-Normalisierung', code: 'znorm' },
     ]
-
     this.berechnungOnOff = true;
   }
+
+
+
 }
