@@ -7,13 +7,23 @@ import { Observable } from "rxjs";
 })
 export class ApiService {
 
+  private apiUrl = 'https://programmierprojekt-ujgmkp4tpq-ez..run.qpp/kmeans/csv?k=X'
+
   constructor(private http: HttpClient) { }
 
-  getData() {
-    return this.http.get("https://programmierprojekt-ujgmkp4tpq-ez..run.qpp/kmeans/csv?k=X")
+  pushData(number: Number){
+    this.http.patch(this.apiUrl, number);
   }
 
-  pushData(){
-    this.http.patch("https://programmierprojekt-ujgmkp4tpq-ez..run.qpp/kmeans/csv?k=X", null);
+  getData() {
+    return this.http.get(this.apiUrl);
   }
+
+  uploadFile(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post(this.apiUrl, formData);
+  }
+
 }
