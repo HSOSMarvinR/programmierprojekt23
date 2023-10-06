@@ -34,6 +34,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 import { ManhattanDistanceComponent } from './manhattan-distance/manhattan-distance.component';
 import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-distance.component';
+import { LokaleBerechnungComponent } from './lokale-berechnung/lokale-berechnung.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-dista
     InfoPanelComponent,
     ChartsComponent,
     ManhattanDistanceComponent,
-    EuclidianDistanceComponent
+    EuclidianDistanceComponent,
+    LokaleBerechnungComponent
   ],
   imports: [
     BrowserModule,
