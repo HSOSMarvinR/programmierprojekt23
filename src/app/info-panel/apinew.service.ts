@@ -15,7 +15,7 @@ export const BASE_URL = new InjectionToken<string>('BASE_URL');
   ],
 })
 export class ApinewService {
-  private baseUrl: string = 'https://programmierprojekt-ujgmkp4tpq-ez..run.qpp/kmeans/csv?k=X';
+  private baseUrl: string = 'https://programmierprojekt-ujgmkp4tpq-ez.a.run.app';
 
   
   private async post(endpoint: string, data: any, params?: any): Promise<any> {
