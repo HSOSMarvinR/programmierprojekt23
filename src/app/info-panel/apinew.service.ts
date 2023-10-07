@@ -18,12 +18,12 @@ export class ApinewService {
   private baseUrl: string = 'https://programmierprojekt-ujgmkp4tpq-ez.a.run.app';
 
   
-  private async post(endpoint: string, data: any, params?: any): Promise<any> {
+  private async post(endpoint: string, file: any, params?: any): Promise<any> {
     const url = `${this.baseUrl}/${endpoint}`;
     const config: AxiosRequestConfig = { params };
     
     try {
-      const response = await axios.post(url, data, config);
+      const response = await axios.post(url, file, config);
       return response.data;
     } catch (error) {
       throw error;
