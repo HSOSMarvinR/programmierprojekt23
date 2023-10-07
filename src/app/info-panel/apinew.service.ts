@@ -1,4 +1,79 @@
-import { NgModule, InjectionToken } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ApinewService {
+  constructor(private httpClient: HttpClient) {}
+
+  private async post(endpoint: string, file: FormData, params?: any): Promise<any> {
+    const url = `https://programmierprojekt-ujgmkp4tpq-ez.a.run.app/${endpoint}`;
+
+    let httpParams = new HttpParams();
+    if (params) {
+      Object.keys(params).forEach((key) => {
+        httpParams = httpParams.set(key, params[key]);
+      });
+    }
+
+    try {
+      const response = await this.httpClient.post(url, file, { params: httpParams }).toPromise();
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async runKMeansEuclidean(ifile: File, options?: {
+    k?: number;
+    normMethod?: string;
+    r?: number;
+    maxCentroidsAbort?: number;
+    minPctElbow?: number;
+    c?: number;
+  }): Promise<any> {
+    const file = new FormData();
+    file.append('file', ifile);
+
+    const params = {
+      k: options?.k,
+      normMethod: options?.normMethod,
+      r: options?.r,
+      maxCentroidsAbort: options?.maxCentroidsAbort,
+      minPctElbow: options?.minPctElbow,
+      c: options?.c,
+    };
+
+    return this.post('kmeans/euclidean', file, params);
+  }
+
+  public async runKMeansManhattan(ifile: File, options?: {
+    k?: number;
+    normMethod?: number;
+    r?: number;
+    maxCentroidsAbort?: number;
+    minPctElbow?: number;
+    c?: number;
+  }): Promise<any> {
+    const file = new FormData();
+    file.append('file', ifile);
+
+    const params = {
+      k: options?.k,
+      normMethod: options?.normMethod,
+      r: options?.r,
+      maxCentroidsAbort: options?.maxCentroidsAbort,
+      minPctElbow: options?.minPctElbow,
+      c: options?.c,
+    };
+
+    return this.post('kmeans/manhattan', file, params);
+  }
+}
+
+
+/* import { NgModule, InjectionToken } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import axios, { AxiosRequestConfig } from 'axios';
 
@@ -77,3 +152,4 @@ export class ApinewService {
   }
 }
 
+ */
