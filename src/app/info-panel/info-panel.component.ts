@@ -13,7 +13,7 @@ interface Normalisierung {
   styleUrls: ['./info-panel.component.css'],
   providers: [MessageService]
 })
-export class InfoPanelComponent implements OnInit {
+export class InfoPanelComponent {
   fileToUpload: File | null = null;
   uploadedFilesData: any[] = [];
   uploadedFiles: any[] = [];
