@@ -30,7 +30,7 @@ export class ApinewService {
     }
   }
 
-  public async runKMeansEuclidean(file: File, options?: {
+  public async runKMeansEuclidean(ifile: File, options?: {
     k?: number,
     normMethod?: string,
     r?: number,
@@ -38,8 +38,8 @@ export class ApinewService {
     minPctElbow?: number,
     c?: number,
   }): Promise<any> {
-    const formData = new FormData();
-    formData.append('file', file);
+    const file = new FormData();
+    file.append('file', ifile);
 
     const params = {
       k: options?.k,
@@ -50,10 +50,10 @@ export class ApinewService {
       c: options?.c,
     };
 
-    return this.post('kmeans/euclidean', formData, params);
+    return this.post('kmeans/euclidean', file, params);
   }
 
-  public async runKMeansManhattan(file: File, options?: {
+  public async runKMeansManhattan(ifile: File, options?: {
     k?: number,
     normMethod?: number,
     r?: number,
@@ -61,8 +61,8 @@ export class ApinewService {
     minPctElbow?: number,
     c?: number,
   }): Promise<any> {
-    const formData = new FormData();
-    formData.append('file', file);
+    const file = new FormData();
+    file.append('file', ifile);
 
     const params = {
       k: options?.k,
@@ -73,7 +73,7 @@ export class ApinewService {
       c: options?.c,
     };
 
-    return this.post('kmeans/manhattan', formData, params);
+    return this.post('kmeans/manhattan', file, params);
   }
 }
 
