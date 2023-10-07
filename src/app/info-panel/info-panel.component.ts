@@ -74,11 +74,11 @@ export class InfoPanelComponent {
         k: kValue,
         normMethod: normMethod
       })
-      .then((response) => {
+      .then((response:any) => {
         console.log('API Response:', response);
         alert('API Response: ' + JSON.stringify(response));
       })
-      .catch((error) => {
+      .catch((error:any) => {
         console.error('API request failed:', error);
         alert('API Request Failed: ' + JSON.stringify(error));
       });
