@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ApinewService } from "./apinew.service";
 import { FileService } from './file.service';
+import { LocalcalculationService } from './localcalculation.service';
 interface Normalisierung {
   name: string;
   code: string;
@@ -11,9 +12,10 @@ interface Normalisierung {
   selector: 'app-info-panel',
   templateUrl: './info-panel.component.html',
   styleUrls: ['./info-panel.component.css'],
-  providers: [MessageService, FileService, ApinewService]
+  providers: [MessageService, FileService, ApinewService, LocalcalculationService]
 })
 export class InfoPanelComponent {
+  useLocalCalculation: boolean = false; 
   fileToUpload: File | null = null;
   uploadedFilesData: any[] = [];
   uploadedFiles: any[] = [];
@@ -33,7 +35,8 @@ export class InfoPanelComponent {
   constructor(
     private messageService: MessageService,
     private ApinewService: ApinewService,
-    private fileService: FileService
+    private fileService: FileService,
+    private localCalculationService: LocalcalculationService,
   ) {}
 
   ngOnInit(): void {
@@ -56,12 +59,34 @@ export class InfoPanelComponent {
   }
 
   onClickPush() {
+    
+    const useLocalCalculation = this.useLocalCalculation;
     const selectedFile = this.fileService.getMarkedFile();
+    const kValue = this.kvalue || 5; // If kvalue is undefined, use default value 5
+    
+
     if (this.selectedNorm == undefined) {
       this.messageService.add({ severity: 'error', summary: 'Fehler', detail: 'Normalisierung auswählen!' });
     } else if(selectedFile){
-      const kValue = this.kvalue || 5; // If kvalue is undefined, use default value 5
       const normMethod = this.selectedNorm.code; // Extracting code from selectedNorm
+    if (useLocalCalculation) {
+      // Perform local calculation
+      const options = {
+        maxIterations: 100, // Specify appropriate values for your use case
+        // Add other options as needed
+      };
+      // Assume you have a method to read data from the file
+      this.fileService.readFileData(selectedFile).then((data: number[][]) => {
+        // Perform local k-means calculation
+        const result = this.localCalculationService.calculateKMeans(data, this.kvalue || 5, options);
+
+        console.log('Local calculation result:', result);
+        alert('Local Calculation Result: ' + JSON.stringify(result));
+      });
+    }
+      
+    else{
+  
       this.ApinewService.runKMeansEuclidean(selectedFile, {
         k: kValue,
         normMethod: normMethod
@@ -74,13 +99,13 @@ export class InfoPanelComponent {
         console.error('API request failed:', error);
         alert('API Request Failed: ' + JSON.stringify(error));
       });
-    } else {
+    }} else {
       // Handle the case where fileToUpload is null
       console.error('No file selected for clustering.');
       alert('No file selected for clustering.');
     }
-
   }
+  
   onClickHistory() {
     this.uploadedFiles = this.fileService.getFiles();
     this.berechnungOnOff = true;
