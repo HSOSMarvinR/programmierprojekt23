@@ -70,6 +70,7 @@ export class ApinewService {
 
     return this.post('kmeans/manhattan', file, params);
   }
+
 }
 
 
