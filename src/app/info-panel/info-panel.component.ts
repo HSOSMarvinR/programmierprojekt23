@@ -91,6 +91,21 @@ export class InfoPanelComponent {
   
       this.ApinewService.runKMeansEuclidean(selectedFile, {
         k: kValue,
+        normMethod: normMethod})
+        .subscribe(
+          (response: any) => {
+            console.log('API Response:', response);
+            alert('API Response: ' + JSON.stringify(response));
+          },
+          (error: any) => {
+            console.error('API request failed:', error);
+            alert('API Request Failed: ' + JSON.stringify(error));
+          }
+        );}
+    }
+  }
+      /* this.ApinewService.runKMeansEuclidean(selectedFile, {
+        k: kValue,
         normMethod: normMethod
       })
       .then((response:any) => {
@@ -106,7 +121,7 @@ export class InfoPanelComponent {
       console.error('No file selected for clustering.');
       alert('No file selected for clustering.');
     }
-  }
+  } */
   
   onClickHistory() {
     this.uploadedFiles = this.fileService.getFiles();

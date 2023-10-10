@@ -20,10 +20,10 @@ export class ApinewService {
       return this.httpClient.post(url, file, { params: httpParams });
   }
 
-  public async runKMeansEuclidean(ifile: File, options?: {
+  public runKMeansEuclidean(ifile: File, options?: {
     k?: number;
     normMethod?: string;
-  }): Promise<any> {
+  }): Observable<any> {
     const file = new FormData();
     file.append('file', ifile);
 
