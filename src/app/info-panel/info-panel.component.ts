@@ -79,11 +79,11 @@ export class InfoPanelComponent {
       // Assume you have a method to read data from the file
       this.fileService.readFileData(selectedFile).then((data: number[][]) => {
         // Perform local k-means calculation
-        alert("Parsing" + data)
-        const result = this.localCalculationService.calculateKMeans(data, this.kvalue || 5, options);
+        
+        alert( this.calculateKMeans(data, this.kvalue || 5, 100));
 
-        console.log('Local calculation result:', result);
-        alert("Local Calculation Result: " + JSON.stringify(result));
+       // console.log('Local calculation result:', result);
+        //alert("Local Calculation Result: " + JSON.stringify(result));
       });
     }
       
@@ -154,4 +154,23 @@ export class InfoPanelComponent {
     this.messageService.add({ severity: 'info', summary: 'Datei hochgeladen!' });
     this.berechnungOnOff = false;
   } */
+
+  calculateKMeans(data: number[][], k: number,options: any): any {
+    
+    try {
+      // Erste Zeile löschen wegen Überschriften
+      data.splice(0, 0)
+      data.splice(0, 1)
+
+      const result = this.localCalculationService.kmeans(data, k);
+      alert('Zentroiden: ' + result.centroids);
+      alert('Cluster: ' + result.clusters);
+   
+    } catch (error) {
+      alert("Es gab einen Error im calculateKMeans")
+    }
+    
+    
+  }
+
 }
