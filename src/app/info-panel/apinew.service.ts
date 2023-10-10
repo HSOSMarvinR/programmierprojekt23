@@ -1,53 +1,63 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { Observable, catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApinewService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient,) {}
 
-  private async post(endpoint: string, file: FormData, params?: any): Promise<any> {
-    const url = `https://programmierprojekt-ujgmkp4tpq-ez.a.run.app/${endpoint}`;
+  postRequest(endpoint: string, file: FormData, options?: any): Observable<any> {
+    const url = `https://development-ujgmkp4tpq-ez.a.run.app/${endpoint}`;
+    
+    
+    const httpParams = new HttpParams({fromObject: options});
+  
+    const header = new HttpHeaders({
+      'Content-Type': 'multipart/form-data',
+    })
 
-    let httpParams = new HttpParams();
-    if (params) {
-      Object.keys(params).forEach((key) => {
-        httpParams = httpParams.set(key, params[key]);
-      });
-    }
+    const request = new HttpRequest('POST', url, file, {
+      headers: header,
+      params: httpParams,
+      reportProgress: true,
+      responseType: 'json',
+      withCredentials: false
+    });
+    alert(url);
+      return this.httpClient.request(request);
 
-    try {
-      const response = await this.httpClient.post(url, file, { params: httpParams });
-      console.log(response);
-      return response;
-    } catch (error) {
-      throw error;
-    }
   }
 
-  public async runKMeansEuclidean(ifile: File, options?: {
+  public runKMeansEuclidean(ifile: File, options?: {
     k?: number;
     normMethod?: string;
-    
-  }): Promise<any> {
+
+  }): Observable<any> {
+
     const file = new FormData();
-    file.append('file', ifile);
+    file.append('file', ifile, 'file.csv');
 
     const params = {
       k: options?.k,
       normMethod: options?.normMethod,
-      
+
     };
 
-    return this.post('kmeans/euclidean', file, params);
+    return this.postRequest('kmeans/euclidean', file, params);
   }
 
-  public async runKMeansManhattan(ifile: File, options?: {
+  public runKMeansManhattan(ifile: File, options?: {
     k?: number;
     normMethod?: number;
-   
-  }): Promise<any> {
+
+   /*  r?: number;
+    maxCentroidsAbort?: number;
+    minPctElbow?: number;
+    c?: number; */
+  }): Observable<any> {
+
     const file = new FormData();
     file.append('file', ifile);
 
@@ -57,7 +67,7 @@ export class ApinewService {
       
     };
 
-    return this.post('kmeans/manhattan', file, params);
+    return this.postRequest('kmeans/manhattan', file, params);
   }
 
 }

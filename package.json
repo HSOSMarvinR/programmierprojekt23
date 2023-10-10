@@ -24,6 +24,7 @@
     "axios": "^1.5.1",
     "chart.js": "^4.4.0",
     "html2canvas": "^1.4.1",
+    "https": "^1.0.0",
     "kmeans-js": "^0.1.2",
     "kmeans-ts": "^1.0.4",
     "ml-kmeans": "^6.0.0",
