@@ -27,18 +27,22 @@ export class ApinewService {
     });
     alert(url);
       return this.httpClient.request(request);
+
   }
 
   public runKMeansEuclidean(ifile: File, options?: {
     k?: number;
     normMethod?: string;
+
   }): Observable<any> {
+
     const file = new FormData();
     file.append('file', ifile, 'file.csv');
 
     const params = {
       k: options?.k,
       normMethod: options?.normMethod,
+
     };
 
     return this.postRequest('kmeans/euclidean', file, params);
@@ -47,21 +51,20 @@ export class ApinewService {
   public runKMeansManhattan(ifile: File, options?: {
     k?: number;
     normMethod?: number;
+
    /*  r?: number;
     maxCentroidsAbort?: number;
     minPctElbow?: number;
     c?: number; */
   }): Observable<any> {
+
     const file = new FormData();
     file.append('file', ifile);
 
     const params = {
       k: options?.k,
       normMethod: options?.normMethod,
-      /* r: options?.r,
-      maxCentroidsAbort: options?.maxCentroidsAbort,
-      minPctElbow: options?.minPctElbow,
-      c: options?.c, */
+      
     };
 
     return this.postRequest('kmeans/manhattan', file, params);
