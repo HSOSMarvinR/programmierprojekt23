@@ -8,7 +8,7 @@ export class ApinewService {
   constructor(private httpClient: HttpClient) {}
 
   private async post(endpoint: string, file: FormData, params?: any): Promise<any> {
-    const url = `https://development-ujgmkp4tpq-ez.a.run.app/${endpoint}`;
+    const url = `https://programmierprojekt-ujgmkp4tpq-ez.a.run.app/${endpoint}`;
 
     let httpParams = new HttpParams();
     if (params) {
@@ -18,7 +18,7 @@ export class ApinewService {
     }
 
     try {
-      const response = await this.httpClient.post(url, file, { params: httpParams }).toPromise();
+      const response = await this.httpClient.post(url, file, { params: httpParams });
       console.log(response);
       return response;
     } catch (error) {
