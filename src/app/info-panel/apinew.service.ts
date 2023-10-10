@@ -29,10 +29,10 @@ export class ApinewService {
   public async runKMeansEuclidean(ifile: File, options?: {
     k?: number;
     normMethod?: string;
-    r?: number;
+    /* r?: number;
     maxCentroidsAbort?: number;
     minPctElbow?: number;
-    c?: number;
+    c?: number; */
   }): Promise<any> {
     const file = new FormData();
     file.append('file', ifile);
@@ -40,10 +40,10 @@ export class ApinewService {
     const params = {
       k: options?.k,
       normMethod: options?.normMethod,
-      r: options?.r,
+      /* r: options?.r,
       maxCentroidsAbort: options?.maxCentroidsAbort,
       minPctElbow: options?.minPctElbow,
-      c: options?.c,
+      c: options?.c, */
     };
 
     return this.post('kmeans/euclidean', file, params);
@@ -52,10 +52,10 @@ export class ApinewService {
   public async runKMeansManhattan(ifile: File, options?: {
     k?: number;
     normMethod?: number;
-    r?: number;
+   /*  r?: number;
     maxCentroidsAbort?: number;
     minPctElbow?: number;
-    c?: number;
+    c?: number; */
   }): Promise<any> {
     const file = new FormData();
     file.append('file', ifile);
@@ -63,10 +63,10 @@ export class ApinewService {
     const params = {
       k: options?.k,
       normMethod: options?.normMethod,
-      r: options?.r,
+      /* r: options?.r,
       maxCentroidsAbort: options?.maxCentroidsAbort,
       minPctElbow: options?.minPctElbow,
-      c: options?.c,
+      c: options?.c, */
     };
 
     return this.post('kmeans/manhattan', file, params);
