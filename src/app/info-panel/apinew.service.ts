@@ -37,14 +37,14 @@ export class ApinewService {
     return this.postRequest('kmeans/euclidean', file, params);
   }
 
-  public async runKMeansManhattan(ifile: File, options?: {
+  public runKMeansManhattan(ifile: File, options?: {
     k?: number;
     normMethod?: number;
    /*  r?: number;
     maxCentroidsAbort?: number;
     minPctElbow?: number;
     c?: number; */
-  }): Promise<any> {
+  }): Observable<any> {
     const file = new FormData();
     file.append('file', ifile);
 
