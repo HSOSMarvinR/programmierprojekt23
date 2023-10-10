@@ -30,8 +30,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { CheckboxModule } from 'primeng/checkbox';
 
 
-
-
+import { FileService } from './info-panel/file.service';
 import { ManhattanDistanceComponent } from './manhattan-distance/manhattan-distance.component';
 import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-distance.component';
 import { LokaleBerechnungComponent } from './lokale-berechnung/lokale-berechnung.component';
@@ -67,7 +66,7 @@ import { LokaleBerechnungComponent } from './lokale-berechnung/lokale-berechnung
     InputNumberModule,
     CheckboxModule
   ],
-  providers: [],
+  providers: [FileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

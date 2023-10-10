@@ -62,16 +62,22 @@
         </div>
         <br>
         <div class="flex-container">
-        <p-button (onClick)="onClickPush()" label="Berechnung starten..." icon="pi pi-telegram"
+       <!--  <p-button (onClick)="onClickPush()" label="Berechnung starten..." icon="pi pi-telegram"
             styleClass="p-button-raised p-button-help" [disabled]="berechnungOnOff" class="flex-item-1"></p-button>
             <br>
-            <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary" class="flex-item-2"></p-checkbox>
+             <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary" class="flex-item-2"></p-checkbox> 
 
-            <p class="flex-item-2">
-                Lokale Berechnung 
-            </p>
-        </div>
- 
+            <p-checkbox [(ngModel)]="useLocalCalculation" inputId="localCalculation"></p-checkbox>
+            <label for="localCalculation">Lokale Berechnung</label>
+        </div> -->
+        
+        <input type="checkbox" [(ngModel)]="useLocalCalculation" id="localCalculation">
+        <label for="localCalculation">Lokale Berechnung</label>
+        <!-- Existing elements for file upload, K value, etc. -->
+        <!-- ... -->
+        
+        <p-button (onClick)="onClickPush()" label="Berechnung starten..." icon="pi pi-telegram"
+            styleClass="p-button-raised p-button-help" [disabled]="berechnungOnOff"></p-button>
 
 
 
