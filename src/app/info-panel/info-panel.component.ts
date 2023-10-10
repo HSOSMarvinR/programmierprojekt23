@@ -5,7 +5,7 @@ import { FileService } from './file.service';
 import { LocalcalculationService } from './localcalculation.service';
 interface Normalisierung {
   name: string;
-  code: string;
+  code: number;
 }
 
 @Component({
@@ -41,9 +41,9 @@ export class InfoPanelComponent {
 
   ngOnInit(): void {
     this.normalisierung = [
-      { name: 'Min/Max Normalisierung', code: '1' },
-      { name: 'Robust Scaler', code: 'Robust' },
-      { name: 'Z-Normalisierung', code: '2' },
+      { name: 'Min/Max Normalisierung', code: 1 },
+      { name: 'Robust Scaler', code: 3 },
+      { name: 'Z-Normalisierung', code: 2 },
     ];
     this.berechnungOnOff = true;
   }
@@ -89,6 +89,21 @@ export class InfoPanelComponent {
       
     else{
   
+      if(this.distanz = "man"){
+        this.ApinewService.runKMeansManhattan(selectedFile, {
+          k: kValue,
+          normMethod: normMethod})
+          .subscribe(
+            (response: any) => {
+              console.log('API Response:', response);
+              alert('API Response: ' + JSON.stringify(response));
+            },
+            (error: any) => {
+              console.log('API Error:', error);
+              alert('API Error: ' + JSON.stringify(error));
+            },
+          )
+      }else if(this.distanz = "euk"){
       this.ApinewService.runKMeansEuclidean(selectedFile, {
         k: kValue,
         normMethod: normMethod})
@@ -101,7 +116,10 @@ export class InfoPanelComponent {
             console.log('API Error:', error);
             alert('API Error: ' + JSON.stringify(error));
           },
-        );}
+        
+        );
+      }
+      }
     }
   }
       /* this.ApinewService.runKMeansEuclidean(selectedFile, {

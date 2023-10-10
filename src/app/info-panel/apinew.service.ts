@@ -1,155 +1,74 @@
+// Import-Anweisungen für Angular-Module und RxJS-Operatoren
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable, catchError } from 'rxjs';
 
+// Dekorator, um den Service als Injectable zu kennzeichnen und global verfügbar zu machen
 @Injectable({
   providedIn: 'root',
 })
 export class ApinewService {
-  constructor(private httpClient: HttpClient,) {}
+  // Konstruktor des Dienstes mit der Injektion des HttpClient-Moduls
+  constructor(private httpClient: HttpClient) {}
 
+  // Methode zur Durchführung einer POST-Anfrage an einen API-Endpunkt
   postRequest(endpoint: string, file: FormData, options?: any): Observable<any> {
+    // Zusammenstellen der vollständigen URL durch Hinzufügen des Endpunkts zum Basis-URL
     const url = `https://development-ujgmkp4tpq-ez.a.run.app/${endpoint}`;
     
-    
-    const httpParams = new HttpParams({fromObject: options});
-  
-    const header = new HttpHeaders({
-     /*  'Content-Type': 'multipart/form-data', */
-    })
+    // Erstellen von HTTP-Query-Parametern aus einem options-Objekt
+    const httpParams = new HttpParams({ fromObject: options });
 
+    // Erstellen einer HttpRequest mit den angegebenen Parametern
     const request = new HttpRequest('POST', url, file, {
-      headers: header,
       params: httpParams,
       reportProgress: true,
       responseType: 'json',
       withCredentials: false
     });
-    alert(url);
-      return this.httpClient.request(request);
 
+    // Anzeigen der URL in einem Alert (kann für Debugging-Zwecke verwendet werden)
+    alert(url);
+
+    // Ausführen der HTTP-Anfrage und Rückgabe des Observables
+    return this.httpClient.request(request);
   }
 
+  // Methode zur Ausführung des K-Means-Clustering-Algorithmus mit der euklidischen Distanz
   public runKMeansEuclidean(ifile: File, options?: {
     k?: number;
-    normMethod?: string;
-
+    normMethod?: number;
   }): Observable<any> {
-
+    // Erstellen eines FormData-Objekts und Hinzufügen der Datei
     const file = new FormData();
     file.append('file', ifile, 'file.csv');
 
+    // Erstellen eines options-Objekts mit optionalen Parametern
     const params = {
       k: options?.k,
       normMethod: options?.normMethod,
-
     };
 
+    // Aufrufen der allgemeinen postRequest-Methode mit spezifischem Endpunkt und Parametern
     return this.postRequest('kmeans/euclidean', file, params);
   }
 
+  // Methode zur Ausführung des K-Means-Clustering-Algorithmus mit der Manhattan-Distanz
   public runKMeansManhattan(ifile: File, options?: {
     k?: number;
     normMethod?: number;
-
-   /*  r?: number;
-    maxCentroidsAbort?: number;
-    minPctElbow?: number;
-    c?: number; */
   }): Observable<any> {
-
+    // Erstellen eines FormData-Objekts und Hinzufügen der Datei
     const file = new FormData();
     file.append('file', ifile);
 
+    // Erstellen eines options-Objekts mit optionalen Parametern
     const params = {
       k: options?.k,
       normMethod: options?.normMethod,
-      
     };
 
+    // Aufrufen der allgemeinen postRequest-Methode mit spezifischem Endpunkt und Parametern
     return this.postRequest('kmeans/manhattan', file, params);
   }
-
 }
-
-
-/* import { NgModule, InjectionToken } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import axios, { AxiosRequestConfig } from 'axios';
-
-// Define an injection token for the base URL
-export const BASE_URL = new InjectionToken<string>('BASE_URL');
-
-@NgModule({
-  declarations: [],
-  imports: [HttpClientModule],
-  providers: [
-    ApinewService,
-    // Provide the base URL using the injection token
-    { provide: BASE_URL, useValue: 'https://programmierprojekt-ujgmkp4tpq-ez.a.run.app' },
-  ],
-})
-export class ApinewService {
-  private baseUrl: string = 'https://programmierprojekt-ujgmkp4tpq-ez.a.run.app';
-
-  
-  private async post(endpoint: string, file: any, params?: any): Promise<any> {
-    const url = `${this.baseUrl}/${endpoint}`;
-    const config: AxiosRequestConfig = { params };
-    
-    try {
-      const response = await axios.post(url, file, config);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  public async runKMeansEuclidean(ifile: File, options?: {
-    k?: number,
-    normMethod?: string,
-    r?: number,
-    maxCentroidsAbort?: number,
-    minPctElbow?: number,
-    c?: number,
-  }): Promise<any> {
-    const file = new FormData();
-    file.append('file', ifile);
-
-    const params = {
-      k: options?.k,
-      normMethod: options?.normMethod,
-      r: options?.r,
-      maxCentroidsAbort: options?.maxCentroidsAbort,
-      minPctElbow: options?.minPctElbow,
-      c: options?.c,
-    };
-
-    return this.post('kmeans/euclidean', file, params);
-  }
-
-  public async runKMeansManhattan(ifile: File, options?: {
-    k?: number,
-    normMethod?: number,
-    r?: number,
-    maxCentroidsAbort?: number,
-    minPctElbow?: number,
-    c?: number,
-  }): Promise<any> {
-    const file = new FormData();
-    file.append('file', ifile);
-
-    const params = {
-      k: options?.k,
-      normMethod: options?.normMethod,
-      r: options?.r,
-      maxCentroidsAbort: options?.maxCentroidsAbort,
-      minPctElbow: options?.minPctElbow,
-      c: options?.c,
-    };
-
-    return this.post('kmeans/manhattan', file, params);
-  }
-}
-
- */
