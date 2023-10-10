@@ -19,6 +19,7 @@ export class ApinewService {
 
     try {
       const response = await this.httpClient.post(url, file, { params: httpParams }).toPromise();
+      console.log(response);
       return response;
     } catch (error) {
       throw error;
