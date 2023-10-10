@@ -41,9 +41,9 @@ export class InfoPanelComponent {
 
   ngOnInit(): void {
     this.normalisierung = [
-      { name: 'Min/Max Normalisierung', code: 'MinMax' },
+      { name: 'Min/Max Normalisierung', code: '1' },
       { name: 'Robust Scaler', code: 'Robust' },
-      { name: 'Z-Normalisierung', code: 'znorm' },
+      { name: 'Z-Normalisierung', code: '2' },
     ];
     this.berechnungOnOff = true;
   }
