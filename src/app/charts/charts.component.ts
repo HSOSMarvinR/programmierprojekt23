@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import html2canvas from 'html2canvas';
+
 @Component({
   selector: 'app-charts',
   templateUrl: './charts.component.html',
