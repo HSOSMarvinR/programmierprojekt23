@@ -15,7 +15,7 @@ export class ApinewService {
     const httpParams = new HttpParams({fromObject: options});
   
     const header = new HttpHeaders({
-      'Content-Type': 'multipart/form-data',
+     /*  'Content-Type': 'multipart/form-data', */
     })
 
     const request = new HttpRequest('POST', url, file, {
