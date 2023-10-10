@@ -71,6 +71,7 @@ export class InfoPanelComponent {
       const normMethod = this.selectedNorm.code; // Extracting code from selectedNorm
     if (useLocalCalculation) {
       // Perform local calculation
+      alert("local");
       const options = {
         maxIterations: 100, // Specify appropriate values for your use case
         // Add other options as needed
@@ -78,10 +79,11 @@ export class InfoPanelComponent {
       // Assume you have a method to read data from the file
       this.fileService.readFileData(selectedFile).then((data: number[][]) => {
         // Perform local k-means calculation
+        alert("Parsing" + data)
         const result = this.localCalculationService.calculateKMeans(data, this.kvalue || 5, options);
 
         console.log('Local calculation result:', result);
-        alert('Local Calculation Result: ' + JSON.stringify(result));
+        alert("Local Calculation Result: " + JSON.stringify(result));
       });
     }
       

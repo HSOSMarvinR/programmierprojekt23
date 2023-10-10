@@ -1,38 +1,28 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApinewService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient,) {}
 
-  private async post(endpoint: string, file: FormData, params?: any): Promise<any> {
-    const url = `https://development-ujgmkp4tpq-ez.a.run.app/${endpoint}`;
-
+  postRequest(endpoint: string, file: FormData, params?: any): Observable<any> {
+    const url = `https://programmierprojekt-ujgmkp4tpq-ez.a.run.app/${endpoint}`;
+    
     let httpParams = new HttpParams();
     if (params) {
       Object.keys(params).forEach((key) => {
         httpParams = httpParams.set(key, params[key]);
       });
     }
-
-    try {
-      const response = await this.httpClient.post(url, file, { params: httpParams }).toPromise();
-      console.log(response);
-      return response;
-    } catch (error) {
-      throw error;
-    }
+      return this.httpClient.post(url, file, { params: httpParams });
   }
 
   public async runKMeansEuclidean(ifile: File, options?: {
     k?: number;
     normMethod?: string;
-    /* r?: number;
-    maxCentroidsAbort?: number;
-    minPctElbow?: number;
-    c?: number; */
   }): Promise<any> {
     const file = new FormData();
     file.append('file', ifile);
@@ -40,13 +30,9 @@ export class ApinewService {
     const params = {
       k: options?.k,
       normMethod: options?.normMethod,
-      /* r: options?.r,
-      maxCentroidsAbort: options?.maxCentroidsAbort,
-      minPctElbow: options?.minPctElbow,
-      c: options?.c, */
     };
 
-    return this.post('kmeans/euclidean', file, params);
+    return this.postRequest('kmeans/euclidean', file, params);
   }
 
   public async runKMeansManhattan(ifile: File, options?: {
@@ -69,7 +55,7 @@ export class ApinewService {
       c: options?.c, */
     };
 
-    return this.post('kmeans/manhattan', file, params);
+    return this.postRequest('kmeans/manhattan', file, params);
   }
 
 }
