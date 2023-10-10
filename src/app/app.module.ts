@@ -31,18 +31,15 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 
 import { FileService } from './info-panel/file.service';
-import { ManhattanDistanceComponent } from './manhattan-distance/manhattan-distance.component';
-import { EuclidianDistanceComponent } from './euclidian-distance/euclidian-distance.component';
-import { LokaleBerechnungComponent } from './lokale-berechnung/lokale-berechnung.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     InfoPanelComponent,
     ChartsComponent,
-    ManhattanDistanceComponent,
-    EuclidianDistanceComponent,
-    LokaleBerechnungComponent
+
+  
   ],
   imports: [
     BrowserModule,

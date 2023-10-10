@@ -9,15 +9,17 @@ export class ApinewService {
   constructor(private httpClient: HttpClient,) {}
 
   postRequest(endpoint: string, file: FormData, params?: any): Observable<any> {
-    const url = `https://programmierprojekt-ujgmkp4tpq-ez.a.run.app/kmeans/euclidean`;
+    const url = `https://development-ujgmkp4tpq-ez.a.run.app/kmeans/euclidean`;
     
-    /* let httpParams = new HttpParams();
+    
+    let httpParams = new HttpParams();
     if (params) {
       Object.keys(params).forEach((key) => {
         httpParams = httpParams.set(key, params[key]);
       });
-    } */
-      return this.httpClient.post(url, file);
+    }
+    
+      return this.httpClient.post(url, file, {withCredentials: true, reportProgress:true});
   }
 
   public runKMeansEuclidean(ifile: File, options?: {

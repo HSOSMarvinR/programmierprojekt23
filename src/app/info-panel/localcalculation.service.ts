@@ -9,6 +9,7 @@ export class LocalcalculationService {
 
   calculateKMeans(data: number[][], k: number,options: any): any {
     const result = kmeans(data, k, options);
+    alert(result);
     return result;
   }
 }
