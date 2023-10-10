@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpParams, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { Observable, catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,18 +8,25 @@ import { Observable } from 'rxjs';
 export class ApinewService {
   constructor(private httpClient: HttpClient,) {}
 
-  postRequest(endpoint: string, file: FormData, params?: any): Observable<any> {
-    const url = `https://development-ujgmkp4tpq-ez.a.run.app/kmeans/euclidean`;
+  postRequest(endpoint: string, file: FormData, options?: any): Observable<any> {
+    const url = `https://development-ujgmkp4tpq-ez.a.run.app/${endpoint}`;
     
     
-    let httpParams = new HttpParams();
-    if (params) {
-      Object.keys(params).forEach((key) => {
-        httpParams = httpParams.set(key, params[key]);
-      });
-    }
-    
-      return this.httpClient.post(url, file, {withCredentials: true, reportProgress:true});
+    const httpParams = new HttpParams({fromObject: options});
+  
+    const header = new HttpHeaders({
+      'Content-Type': 'multipart/form-data',
+    })
+
+    const request = new HttpRequest('POST', url, file, {
+      headers: header,
+      params: httpParams,
+      reportProgress: true,
+      responseType: 'json',
+      withCredentials: false
+    });
+    alert(url);
+      return this.httpClient.request(request);
   }
 
   public runKMeansEuclidean(ifile: File, options?: {
@@ -27,7 +34,7 @@ export class ApinewService {
     normMethod?: string;
   }): Observable<any> {
     const file = new FormData();
-    file.append('file', ifile);
+    file.append('file', ifile, 'file.csv');
 
     const params = {
       k: options?.k,

@@ -98,8 +98,8 @@ export class InfoPanelComponent {
             alert('API Response: ' + JSON.stringify(response));
           },
           (error: any) => {
-            console.log('API Response:', error);
-            alert('API Response: ' + JSON.stringify(error));
+            console.log('API Error:', error);
+            alert('API Error: ' + JSON.stringify(error));
           },
         );}
     }
