@@ -31,6 +31,7 @@ export class InfoPanelComponent implements OnInit {
     { label: 'Euklidische Distanz', value: 'euk' }
   ];
   @Output() apiResponse: EventEmitter<any> = new EventEmitter<any>
+  @Output() localResponse: EventEmitter<any> = new EventEmitter<any>
 
   kvalue: number | undefined;
   checked: boolean = false;
@@ -86,7 +87,7 @@ export class InfoPanelComponent implements OnInit {
       }
     if (useLocalCalculation) {
       // Perform local calculation
-      alert("local");
+      //alert("local");
       const options = {
         maxIterations: 100, // Specify appropriate values for your use case
         // Add other options as needed
@@ -94,12 +95,16 @@ export class InfoPanelComponent implements OnInit {
       // Assume you have a method to read data from the file
       this.fileService.readFileData(selectedFile).then((data: number[][]) => {
         // Perform local k-means calculation
+
+        this.localResponse.emit(data);
         
-        alert( this.calculateKMeans(data, this.kvalue || 5, 100));
+        console.log( this.calculateKMeans(data, this.kvalue || 5, 100));
 
        // console.log('Local calculation result:', result);
         //alert("Local Calculation Result: " + JSON.stringify(result));
       });
+
+      
     }
       
     else{
@@ -203,8 +208,8 @@ export class InfoPanelComponent implements OnInit {
       data.splice(0, 1)
 
       const result = this.localCalculationService.kmeans(data, k);
-      alert('Zentroiden: ' + result.centroids);
-      alert('Cluster: ' + result.clusters);
+      console.log('Zentroiden: ' + result.centroids);
+      console.log('Cluster: ' + result.clusters);
    
     } catch (error) {
       alert("Es gab einen Error im calculateKMeans")
