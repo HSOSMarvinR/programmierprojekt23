@@ -8,12 +8,18 @@ interface Normalisierung {
   code: number;
 }
 
+interface Distanz {
+  name: string;
+  code: number;
+}
+
 @Component({
   selector: 'app-info-panel',
   templateUrl: './info-panel.component.html',
   styleUrls: ['./info-panel.component.css'],
   providers: [MessageService, FileService, ApinewService, LocalcalculationService]
 })
+
 export class InfoPanelComponent implements OnInit {
   useLocalCalculation: boolean = false; 
   csvDeciSepHTML: boolean = false;
@@ -24,12 +30,13 @@ export class InfoPanelComponent implements OnInit {
 
   normalisierung: Normalisierung[] | undefined;
   selectedNorm: Normalisierung | undefined;
-  distanz: string = "man";
+  distanz: Distanz[] | undefined;
+  selectedDistanz: Distanz | undefined;
   berechnungOnOff: boolean | undefined;
-  selectedDistanz: any[] = [
+  /*selectedDistanz: any[] = [
     { label: 'Manhattan Distanz', value: 'man' },
     { label: 'Euklidische Distanz', value: 'euk' }
-  ];
+  ]; */
   @Output() apiResponse: EventEmitter<any> = new EventEmitter<any>
   @Output() localResponse: EventEmitter<any> = new EventEmitter<any>
 
@@ -45,11 +52,18 @@ export class InfoPanelComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+    this.distanz = [
+      { name: 'Manhattan Distanz', code: 1 },
+      { name: 'Euklidische Distanz', code: 2 }
+    ];
+
     this.normalisierung = [
       { name: 'Min/Max Normalisierung', code: 1 },
       { name: 'Z-Normalisierung', code: 2 },
     ];
     this.berechnungOnOff = true;
+
   }
 
   handleFileInput(files: FileList) {
@@ -74,9 +88,10 @@ export class InfoPanelComponent implements OnInit {
     
     const useLocalCalculation = this.useLocalCalculation;
     const selectedFile = this.fileService.getMarkedFile(this.selectedFileIndex);
-    const kValue = this.kvalue || 5; // If kvalue is undefined, use default value
+    const kValue = this.kvalue; // If kvalue is undefined, use default value
     let csvDecimalSeperator = "EU";
     let normMethod = 1;
+
 
     if(selectedFile){
       if(this.selectedNorm != undefined){
@@ -108,8 +123,7 @@ export class InfoPanelComponent implements OnInit {
     }
       
     else{
-  
-      if(this.distanz = "man"){
+      if(this.selectedDistanz?.code == 1){
         this.ApinewService.runKMeansManhattan(selectedFile, {
           k: kValue,
           normMethod: normMethod,
@@ -125,14 +139,14 @@ export class InfoPanelComponent implements OnInit {
               alert('API Error: ' + JSON.stringify(error));
             },
           )
-      }else if(this.distanz = "euk"){
+      }else if(this.selectedDistanz?.code == 2){
       this.ApinewService.runKMeansEuclidean(selectedFile, {
         k: kValue,
         normMethod: normMethod,
         csvDecimalSeparator: csvDecimalSeperator,})
         .subscribe(
           (response: any) => {
-            console.log('API Response: euclidean', response.body);
+            console.log('API Response: euclidean', response);
             this.apiResponse.emit(response.body)
             //alert('API Response: ' + JSON.stringify(response));
           },

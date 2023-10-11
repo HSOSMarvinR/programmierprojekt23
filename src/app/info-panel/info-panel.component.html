@@ -61,11 +61,12 @@
         <br>
         <p class="m-2">
             Bitte wähle eine deinen Wert für K.
+            Bei keiner Auswahl wird der bestmögliche K Wert berechnet.
         </p>
         <div class="flex-auto">
             <label class="mb-2 block font-bold" for="minmax-buttons"></label>
             <p-inputNumber [(ngModel)]="kvalue" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="1"
-                placeholder="K = 5"> </p-inputNumber>
+                placeholder="K"> </p-inputNumber>
         </div>
 
         <br>
@@ -75,8 +76,7 @@
 
         <div class="card flex justify-content-center">
 
-            <p-selectButton [options]="selectedDistanz" [(ngModel)]="distanz" optionLabel="label"
-                optionValue="value"></p-selectButton>
+            <p-dropdown [options]="distanz" [(ngModel)]="selectedDistanz" optionLabel="name"></p-dropdown>
 
         </div>
         <br>
