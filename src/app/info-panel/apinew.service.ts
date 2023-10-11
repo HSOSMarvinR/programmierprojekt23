@@ -44,12 +44,20 @@ export class ApinewService {
     const file = new FormData();
     file.append('file', ifile, 'file.csv');
 
+    let params;
     // Erstellen eines options-Objekts mit optionalen Parametern
-    const params = {
-      k: options?.k,
-      normMethod: options?.normMethod,
-      csvDecimalSeparator: options?.csvDecimalSeparator,
-    };
+    if(options?.k != undefined){
+      params = {
+        k: options?.k,
+        normMethod: options?.normMethod,
+        csvDecimalSeparator: options?.csvDecimalSeparator,
+      }
+    } else {
+      params = {
+        normMethod: options?.normMethod,
+        csvDecimalSeparator: options?.csvDecimalSeparator,
+      };
+    }
 
     // Aufrufen der allgemeinen postRequest-Methode mit spezifischem Endpunkt und Parametern
     return this.postRequest('kmeans/euclidean', file, params);
@@ -65,12 +73,20 @@ export class ApinewService {
     const file = new FormData();
     file.append('file', ifile);
 
+    let params;
     // Erstellen eines options-Objekts mit optionalen Parametern
-    const params = {
-      k: options?.k,
-      normMethod: options?.normMethod,
-      csvDecimalSeparator: options?.csvDecimalSeparator,
-    };
+    if(options?.k != undefined){
+      params = {
+        k: options?.k,
+        normMethod: options?.normMethod,
+        csvDecimalSeparator: options?.csvDecimalSeparator,
+      }
+    } else {
+      params = {
+        normMethod: options?.normMethod,
+        csvDecimalSeparator: options?.csvDecimalSeparator,
+      };
+    }
 
     // Aufrufen der allgemeinen postRequest-Methode mit spezifischem Endpunkt und Parametern
     return this.postRequest('kmeans/manhattan', file, params);
