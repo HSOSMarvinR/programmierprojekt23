@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ApinewService } from "./apinew.service";
 import { FileService } from './file.service';
@@ -14,7 +14,7 @@ interface Normalisierung {
   styleUrls: ['./info-panel.component.css'],
   providers: [MessageService, FileService, ApinewService, LocalcalculationService]
 })
-export class InfoPanelComponent {
+export class InfoPanelComponent implements OnInit {
   useLocalCalculation: boolean = false; 
   fileToUpload: File | null = null;
   uploadedFilesData: any[] = [];
@@ -29,6 +29,7 @@ export class InfoPanelComponent {
     { label: 'Manhattan Distanz', value: 'man' },
     { label: 'Euklidische Distanz', value: 'euk' }
   ];
+  @Output() apiResponse: EventEmitter<any> = new EventEmitter<any>
 
   kvalue: number | undefined;
   checked: boolean = false;
@@ -105,8 +106,9 @@ export class InfoPanelComponent {
           normMethod: normMethod})
           .subscribe(
             (response: any) => {
-              console.log('API Response:', response);
-              alert('API Response: ' + JSON.stringify(response));
+              console.log('API Response: for manhattan', response);
+              this.apiResponse.emit(response.body)
+              //alert('API Response: ' + JSON.stringify(response));
             },
             (error: any) => {
               console.log('API Error:', error);
@@ -119,8 +121,9 @@ export class InfoPanelComponent {
         normMethod: normMethod})
         .subscribe(
           (response: any) => {
-            console.log('API Response:', response);
-            alert('API Response: ' + JSON.stringify(response));
+            console.log('API Response: euclidean', response.body);
+            this.apiResponse.emit(response.body)
+            //alert('API Response: ' + JSON.stringify(response));
           },
           (error: any) => {
             console.log('API Error:', error);

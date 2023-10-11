@@ -28,7 +28,7 @@ export class ApinewService {
     });
 
     // Anzeigen der URL in einem Alert (kann für Debugging-Zwecke verwendet werden)
-    alert(url);
+    //alert(url);
 
     // Ausführen der HTTP-Anfrage und Rückgabe des Observables
     return this.httpClient.request(request);

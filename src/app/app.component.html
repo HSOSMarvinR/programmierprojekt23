@@ -1,8 +1,8 @@
 <p-card id="wrapper" [style]="{ width: '100%' }">
   <div id="wrapper">
 
-    <div id="first" style="width: 50%;"><app-info-panel></app-info-panel></div>
-    <div id="second" style="width: 50%;"><app-charts></app-charts></div>
+    <div id="first" style="width: 50%;"><app-info-panel (apiResponse)="handleApiResponse($event)"></app-info-panel></div>
+    <div id="second" style="width: 50%;"><app-charts [apiResponse]="apiResponse"></app-charts></div>
 
   </div>
 </p-card>
