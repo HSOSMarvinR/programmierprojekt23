@@ -16,6 +16,7 @@ interface Normalisierung {
 })
 export class InfoPanelComponent implements OnInit {
   useLocalCalculation: boolean = false; 
+  csvDeciSepHTML: boolean = false;
   fileToUpload: File | null = null;
   uploadedFilesData: any[] = [];
   uploadedFiles: any[] = [];
@@ -73,11 +74,15 @@ export class InfoPanelComponent implements OnInit {
     const useLocalCalculation = this.useLocalCalculation;
     const selectedFile = this.fileService.getMarkedFile(this.selectedFileIndex);
     const kValue = this.kvalue || 5; // If kvalue is undefined, use default value
+    let csvDecimalSeperator = "EU";
     let normMethod = 1;
 
     if(selectedFile){
       if(this.selectedNorm != undefined){
         normMethod = this.selectedNorm.code;
+      }
+      if(this.csvDeciSepHTML){
+        csvDecimalSeperator = "US";
       }
     if (useLocalCalculation) {
       // Perform local calculation
@@ -102,7 +107,8 @@ export class InfoPanelComponent implements OnInit {
       if(this.distanz = "man"){
         this.ApinewService.runKMeansManhattan(selectedFile, {
           k: kValue,
-          normMethod: normMethod})
+          normMethod: normMethod,
+          csvDecimalSeperator: csvDecimalSeperator,})
           .subscribe(
             (response: any) => {
               console.log('API Response: for manhattan', response);
@@ -117,7 +123,8 @@ export class InfoPanelComponent implements OnInit {
       }else if(this.distanz = "euk"){
       this.ApinewService.runKMeansEuclidean(selectedFile, {
         k: kValue,
-        normMethod: normMethod})
+        normMethod: normMethod,
+        csvDecimalSeperator: csvDecimalSeperator,})
         .subscribe(
           (response: any) => {
             console.log('API Response: euclidean', response.body);
