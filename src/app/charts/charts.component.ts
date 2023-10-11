@@ -120,41 +120,37 @@ export class ChartsComponent implements OnInit, OnChanges {
         })
     }
 
-    generateDatasets (): void {
+    generateDatasets(): void {
         this.datasets = []
         const centroids: any[] = []
         const clusterArray: any[] = []
         this.sortedApiResponse.map((cluster: any) => {
-          const dataset: any = {
-            label: 'Cluster',
-            data: cluster.points,
-            parsing: {
-              xAxisKey: 'PunktDimension0', 
-              yAxisKey: 'PunktDimension1',
+            const dataset: any = {
+                label: 'Cluster',
+                data: cluster.points,
+                parsing: {
+                    xAxisKey: 'PunktDimension0',
+                    yAxisKey: 'PunktDimension1',
+                }
             }
-          }
-          let centroid = {
-            'PunktDimension0': cluster.ZentDimension0,
-            'PunktDimension1': cluster.ZentDimension1
-          }
-          centroids.push(centroid)
-          clusterArray.push(dataset)
+            let centroid = {
+                'PunktDimension0': cluster.ZentDimension0,
+                'PunktDimension1': cluster.ZentDimension1
+            }
+            centroids.push(centroid)
+            clusterArray.push(dataset)
         })
         const centroidDataset: any = {
-          label: 'Centroids',
-          data: centroids,
-          pointStyle: 'rectRot',
-          radius: 10
+            label: 'Centroids',
+            data: centroids,
+            pointStyle: 'rectRot',
+            radius: 10
         }
         this.datasets.push(centroidDataset)
         clusterArray.map(cluster => {
-          this.datasets.push(cluster)
+            this.datasets.push(cluster)
         })
         console.log(this.datasets)
-      }
+    }
 
 }
-
-
-
-
