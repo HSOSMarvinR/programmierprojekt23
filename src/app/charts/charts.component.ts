@@ -153,42 +153,6 @@ export class ChartsComponent implements OnInit, OnChanges {
         console.log(this.datasets)
       }
 
-    /*generateDatasets(): void {
-        this.datasets = [];
-        const clusterArray: any[] = [];
-
-        this.sortedApiResponse.forEach((cluster: any) => {
-            const dataset: any = {
-                label: 'Cluster',
-                data: cluster.points,
-                parsing: {
-                    xAxisKey: 'PunktDimension0',
-                    yAxisKey: 'PunktDimension1',
-                }
-            };
-            clusterArray.push(dataset);
-        });
-
-        const centroids: any = {
-            label: 'Centroids',
-            data: clusterArray.map(cluster => ({
-                x: cluster.parsing.xAxisKey,
-                y: cluster.parsing.yAxisKey
-            })),
-            pointStyle: 'rectRot',
-            radius: 10
-        };
-
-        console.log('Die Zentroiden' + centroids)
-
-        this.datasets.push(centroids);
-        //this.datasets.push(...clusterArray); // Fügt alle Cluster-Datasets hinzu
-
-        console.log(this.datasets);
-    }*/
-
-
-
 }
 
 
