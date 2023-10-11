@@ -38,7 +38,7 @@ export class ApinewService {
   public runKMeansEuclidean(ifile: File, options?: {
     k?: number;
     normMethod?: number;
-    csvDecimalSeperator?: string;
+    csvDecimalSeparator?: string;
   }): Observable<any> {
     // Erstellen eines FormData-Objekts und Hinzufügen der Datei
     const file = new FormData();
@@ -48,7 +48,7 @@ export class ApinewService {
     const params = {
       k: options?.k,
       normMethod: options?.normMethod,
-      csvDecimalSeperator: options?.csvDecimalSeperator,
+      csvDecimalSeparator: options?.csvDecimalSeparator,
     };
 
     // Aufrufen der allgemeinen postRequest-Methode mit spezifischem Endpunkt und Parametern
@@ -59,7 +59,7 @@ export class ApinewService {
   public runKMeansManhattan(ifile: File, options?: {
     k?: number;
     normMethod?: number;
-    csvDecimalSeperator?: string;
+    csvDecimalSeparator?: string;
   }): Observable<any> {
     // Erstellen eines FormData-Objekts und Hinzufügen der Datei
     const file = new FormData();
@@ -69,7 +69,7 @@ export class ApinewService {
     const params = {
       k: options?.k,
       normMethod: options?.normMethod,
-      csvDecimalSeperator: options?.csvDecimalSeperator,
+      csvDecimalSeparator: options?.csvDecimalSeparator,
     };
 
     // Aufrufen der allgemeinen postRequest-Methode mit spezifischem Endpunkt und Parametern

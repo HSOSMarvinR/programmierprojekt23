@@ -113,7 +113,7 @@ export class InfoPanelComponent implements OnInit {
         this.ApinewService.runKMeansManhattan(selectedFile, {
           k: kValue,
           normMethod: normMethod,
-          csvDecimalSeperator: csvDecimalSeperator,})
+          csvDecimalSeparator: csvDecimalSeperator,})
           .subscribe(
             (response: any) => {
               console.log('API Response: for manhattan', response);
@@ -129,7 +129,7 @@ export class InfoPanelComponent implements OnInit {
       this.ApinewService.runKMeansEuclidean(selectedFile, {
         k: kValue,
         normMethod: normMethod,
-        csvDecimalSeperator: csvDecimalSeperator,})
+        csvDecimalSeparator: csvDecimalSeperator,})
         .subscribe(
           (response: any) => {
             console.log('API Response: euclidean', response.body);
