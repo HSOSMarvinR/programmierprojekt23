@@ -44,7 +44,6 @@ export class InfoPanelComponent {
   ngOnInit(): void {
     this.normalisierung = [
       { name: 'Min/Max Normalisierung', code: 1 },
-      { name: 'Robust Scaler', code: 3 },
       { name: 'Z-Normalisierung', code: 2 },
     ];
     this.berechnungOnOff = true;
@@ -72,13 +71,13 @@ export class InfoPanelComponent {
     
     const useLocalCalculation = this.useLocalCalculation;
     const selectedFile = this.fileService.getMarkedFile(this.selectedFileIndex);
-    const kValue = this.kvalue || 5; // If kvalue is undefined, use default value 5
-    
+    const kValue = this.kvalue || 5; // If kvalue is undefined, use default value
+    let normMethod = 1;
 
-    if (this.selectedNorm == undefined) {
-      this.messageService.add({ severity: 'error', summary: 'Fehler', detail: 'Normalisierung auswählen!' });
-    } else if(selectedFile){
-      const normMethod = this.selectedNorm.code; // Extracting code from selectedNorm
+    if(selectedFile){
+      if(this.selectedNorm != undefined){
+        normMethod = this.selectedNorm.code;
+      }
     if (useLocalCalculation) {
       // Perform local calculation
       alert("local");
