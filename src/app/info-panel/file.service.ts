@@ -8,22 +8,27 @@ export class FileService {
   private fileToUpload: File | null = null;
 
   addFile(file: File) {
-    this.uploadedFiles.push(file);
+    this.uploadedFiles.unshift(file);
   }
 
   getFiles(): File[] {
     return this.uploadedFiles;
   }
 
-  getMarkedFile(): File | null {
+  getMarkedFile(i: number): File | null {
     if (this.uploadedFiles.length > 0) {
-      this.fileToUpload = this.uploadedFiles[0];
+      this.fileToUpload = this.uploadedFiles[i];
       return this.fileToUpload;
     }
     return null;
   }
   deleteFile(index: number) {
     this.uploadedFiles.splice(index, 1);
+  }
+
+  deleteAllFiles(){
+    this.uploadedFiles = [];
+    alert("hallo" + this.uploadedFiles.toLocaleString);
   }
   performLocalCalculation(file: File, options?: {
     k?: number,

@@ -19,6 +19,7 @@ export class InfoPanelComponent {
   fileToUpload: File | null = null;
   uploadedFilesData: any[] = [];
   uploadedFiles: any[] = [];
+  selectedFileIndex: number = -1;
 
   normalisierung: Normalisierung[] | undefined;
   selectedNorm: Normalisierung | undefined;
@@ -37,6 +38,7 @@ export class InfoPanelComponent {
     private ApinewService: ApinewService,
     private fileService: FileService,
     private localCalculationService: LocalcalculationService,
+    
   ) {}
 
   ngOnInit(): void {
@@ -52,16 +54,24 @@ export class InfoPanelComponent {
     this.fileToUpload = files.item(0);
   }
 
-  uploadFile() {
-    if (this.fileToUpload) {
-      this.fileService.addFile(this.fileToUpload);
+  setSelectedFile(index: number) {
+    this.selectedFileIndex = index;
+  }
+
+  // Methode, um ein File auszuwählen
+  selectFile(index: number) {
+    if (this.selectedFileIndex === index) {
+      // Wenn die Datei bereits ausgewählt ist, tue nichts
+      return;
     }
+    // Setze die ausgewählte Datei auf die aktuelle Indexposition
+    this.setSelectedFile(index);
   }
 
   onClickPush() {
     
     const useLocalCalculation = this.useLocalCalculation;
-    const selectedFile = this.fileService.getMarkedFile();
+    const selectedFile = this.fileService.getMarkedFile(this.selectedFileIndex);
     const kValue = this.kvalue || 5; // If kvalue is undefined, use default value 5
     
 
@@ -142,15 +152,18 @@ export class InfoPanelComponent {
   } */
   
   onClickHistory() {
-    this.uploadedFiles = this.fileService.getFiles();
+    this.fileService.deleteAllFiles;
+    this.uploadedFilesData = [];
     this.berechnungOnOff = true;
+    this.selectedFileIndex = -1;
   }
 
   onUpload(event: any) {
     for (let file of event.files) {
       this.fileService.addFile(file);  // Hier wird die Datei dem FileService hinzugefügt
-      this.uploadedFilesData.push(file);
+      this.uploadedFilesData.unshift(file);
       this.uploadedFiles.push(file);
+      this.setSelectedFile(0);
     }
       if (this.uploadedFiles.length > 1) {
         this.uploadedFiles.shift();

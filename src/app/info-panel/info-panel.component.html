@@ -20,10 +20,29 @@
                 <div class="py-3"><br>Drag & Drop oder Datei auswählen</div>
                 <ul *ngIf="uploadedFiles.length">
                     <div class="py-4"><br>Upload Historie:</div>
-                    <br>
-                    <li *ngFor="let file of uploadedFilesData">{{ file.name }} - {{ file.size }} bytes</li>
-                    <br>
-                    <p-button (onClick)="onClickHistory()" label="Historie löschen" icon="pi pi-times"
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th style="width: 50%; text-align: left;">Datei</th>
+                                <th style="width: 30%; text-align: left;">Größe</th>
+                                <th style="width: 20%; text-align: left;">Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let file of uploadedFilesData; let i = index"
+                                [ngStyle]="{'background-color': selectedFileIndex === i ? 'lightblue' : ''}">
+                                <td>{{ file.name }}</td>
+                                <td>{{ file.size }} bytes</td>
+                                <td>
+                                    <p-button (click)="selectFile(i)" label="Auswählen"
+                                            [ngClass]="{'p-button-danger': selectedFileIndex === i, 'p-button-rounded': true}"
+                                            [disabled]="selectedFileIndex === i">
+                                    </p-button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p-button (click)="onClickHistory()" label="Historie löschen" icon="pi pi-times"
                         styleClass="p-button-rounded p-button-danger"></p-button>
                 </ul>
             </ng-template>
