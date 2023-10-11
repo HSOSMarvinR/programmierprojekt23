@@ -100,6 +100,7 @@ export class ChartsComponent implements OnInit, OnChanges {
 
 
     renderChart() {
+        console.log(this.datasets)
         this.chart = new Chart('Chart', {
             type: 'scatter',
             data: {
@@ -132,7 +133,7 @@ export class ChartsComponent implements OnInit, OnChanges {
                     xAxisKey: 'PunktDimension0',
                     yAxisKey: 'PunktDimension1',
                 }
-            }
+            } 
             let centroid = {
                 'PunktDimension0': cluster.ZentDimension0,
                 'PunktDimension1': cluster.ZentDimension1
@@ -143,6 +144,10 @@ export class ChartsComponent implements OnInit, OnChanges {
         const centroidDataset: any = {
             label: 'Centroids',
             data: centroids,
+            parsing: {
+                xAxisKey: 'PunktDimension0',
+                yAxisKey: 'PunktDimension1',
+            },
             pointStyle: 'rectRot',
             radius: 10
         }
