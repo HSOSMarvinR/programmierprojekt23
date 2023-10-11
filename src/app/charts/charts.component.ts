@@ -37,7 +37,7 @@ export class ChartsComponent implements OnInit, OnChanges {
             console.log(this.apiResponse)
             this.sortedApiResponse = this.groupPointsByZentDimensions(this.apiResponse);
             this.generateDatasets()
-            if(this.chart) {
+            if (this.chart) {
                 this.chart.destroy()
             }
             this.renderChart()
@@ -46,7 +46,7 @@ export class ChartsComponent implements OnInit, OnChanges {
             console.log(this.localResponse)
             this.sortedLocalResponse = this.groupPointsByZentDimensions(this.localResponse);
             this.generateDatasets()
-            if(this.chart) {
+            if (this.chart) {
                 this.chart.destroy()
             }
         }
@@ -75,11 +75,11 @@ export class ChartsComponent implements OnInit, OnChanges {
 
     groupPointsByZentDimensions(data: any): GroupedPoints[] {
         const groupedPointsMap = new Map<string, GroupedPoints>();
-    
+
         const avgDistance = parseFloat(data[0].avgDistance);
         const k = parseInt(data[0].k, 10);
         const pointsArray = data[1] as Point[];
-    
+
         for (const point of pointsArray) {
             const key = `${point.ZentDimension0},${point.ZentDimension1}`;
             if (groupedPointsMap.has(key)) {
@@ -88,16 +88,16 @@ export class ChartsComponent implements OnInit, OnChanges {
                 groupedPointsMap.set(key, { ZentDimension0: point.ZentDimension0, ZentDimension1: point.ZentDimension1, points: [point] });
             }
         }
-    
+
         const groupedPoints: GroupedPoints[] = [];
         for (const group of groupedPointsMap.values()) {
             groupedPoints.push(group);
         }
-    
+
         console.log(groupedPoints)
         return groupedPoints;
     }
-    
+
 
     renderChart() {
         this.chart = new Chart('Chart', {
@@ -152,7 +152,42 @@ export class ChartsComponent implements OnInit, OnChanges {
         })
         console.log(this.datasets)
       }
-      
+
+    /*generateDatasets(): void {
+        this.datasets = [];
+        const clusterArray: any[] = [];
+
+        this.sortedApiResponse.forEach((cluster: any) => {
+            const dataset: any = {
+                label: 'Cluster',
+                data: cluster.points,
+                parsing: {
+                    xAxisKey: 'PunktDimension0',
+                    yAxisKey: 'PunktDimension1',
+                }
+            };
+            clusterArray.push(dataset);
+        });
+
+        const centroids: any = {
+            label: 'Centroids',
+            data: clusterArray.map(cluster => ({
+                x: cluster.parsing.xAxisKey,
+                y: cluster.parsing.yAxisKey
+            })),
+            pointStyle: 'rectRot',
+            radius: 10
+        };
+
+        console.log('Die Zentroiden' + centroids)
+
+        this.datasets.push(centroids);
+        //this.datasets.push(...clusterArray); // Fügt alle Cluster-Datasets hinzu
+
+        console.log(this.datasets);
+    }*/
+
+
 
 }
 
