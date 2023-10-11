@@ -54,7 +54,7 @@
         </p>
         <div class="card flex justify-content-center">
             <p-dropdown [options]="normalisierung" [(ngModel)]="selectedNorm" optionLabel="name"
-                placeholder="Bitte auswählen"></p-dropdown>
+                placeholder="Min / Max Normalisierung"></p-dropdown>
         </div>
 
 
@@ -95,7 +95,7 @@
         <!-- Existing elements for file upload, K value, etc. -->
         <!-- ... -->
         
-        <p-button (onClick)="onClickPush()" label="Berechnung starten..." icon="pi pi-telegram"
+        <p-button id='B_BerechnungStarten' (onClick)="onClickPush()" label="Berechnung starten..." icon="pi pi-telegram"
             styleClass="p-button-raised p-button-help" [disabled]="berechnungOnOff"></p-button>
 
 
