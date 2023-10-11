@@ -8,8 +8,13 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'K-Means Clustering';
   apiResponse: any;
+  localResponse: any;
 
   handleApiResponse(e: Event){
     this.apiResponse = e;
+  }
+
+  handleLocalResponse(e: Event){
+    this.localResponse = e;
   }
 }

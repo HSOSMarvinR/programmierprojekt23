@@ -27,6 +27,8 @@ export class ChartsComponent implements OnInit, OnChanges {
     options: any;
     @Input() apiResponse: any;
     sortedApiResponse: any;
+    @Input() localResponse: any;
+    sortedLocalResponse: any;
     public chart: any;
     datasets: any = [];
 
@@ -39,6 +41,14 @@ export class ChartsComponent implements OnInit, OnChanges {
                 this.chart.destroy()
             }
             this.renderChart()
+        }
+        else if (changes['localResponse'].currentValue !== undefined) {
+            console.log(this.localResponse)
+            this.sortedLocalResponse = this.groupPointsByZentDimensions(this.localResponse);
+            this.generateDatasets()
+            if(this.chart) {
+                this.chart.destroy()
+            }
         }
     }
 
