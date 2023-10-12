@@ -36,16 +36,18 @@ export class ChartsComponent implements OnInit, OnChanges {
         if (changes['apiResponse'].currentValue !== undefined) {
             console.log(this.apiResponse)
             this.sortedApiResponse = this.groupPointsByZentDimensions(this.apiResponse);
-            this.generateDatasets()
+            this.generateAPIDatasets()
             if (this.chart) {
                 this.chart.destroy()
             }
             this.renderChart()
         }
-        else if (changes['localResponse'].currentValue !== undefined) {
+        else if (changes['apiResponse'].currentValue !== undefined) {
+            alert("HAllo");
             console.log("Test; " + this.localResponse)
-            this.sortedLocalResponse = this.groupPointsByZentDimensions(this.localResponse);
-            this.generateDatasets()
+            this.sortedLocalResponse = this.localResponse;
+            //this.sortedLocalResponse = this.groupPointsByZentDimensions(this.localResponse);
+            this.generateLocalDatasets()
             if (this.chart) {
                 this.chart.destroy()
             }
@@ -121,7 +123,7 @@ export class ChartsComponent implements OnInit, OnChanges {
         })
     }
 
-    generateDatasets(): void {
+    generateAPIDatasets(): void {
         this.datasets = []
         const centroids: any[] = []
         const clusterArray: any[] = []
@@ -148,6 +150,43 @@ export class ChartsComponent implements OnInit, OnChanges {
                 xAxisKey: 'PunktDimension0',
                 yAxisKey: 'PunktDimension1',
             },
+            pointStyle: 'rectRot',
+            radius: 10
+        }
+        this.datasets.push(centroidDataset)
+        clusterArray.map(cluster => {
+            this.datasets.push(cluster)
+        })
+        console.log(this.datasets)
+    }
+
+    generateLocalDatasets(): void {
+        this.datasets = []
+        const centroids: any[] = []
+        const clusterArray: any[] = []
+        this.sortedLocalResponse.map((cluster: any) => {
+            const dataset: any = {
+                label: 'Cluster',
+                data: cluster.points,
+                parsing: {
+                    xAxisKey: 'x',
+                    yAxisKey: 'y',
+                }
+            } 
+            let centroid = {
+                'x': cluster.x,
+                'y': cluster.y
+            }
+            centroids.push(centroid)
+            clusterArray.push(dataset)
+        })
+        const centroidDataset: any = {
+            label: 'Centroids',
+            data: centroids,
+            /*parsing: {
+                xAxisKey: 'PunktDimension0',
+                yAxisKey: 'PunktDimension1',
+            }, */
             pointStyle: 'rectRot',
             radius: 10
         }

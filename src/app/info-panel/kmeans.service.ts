@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵsetAlternateWeakRefImpl } from '@angular/core';
 import { kmeans as KMeans } from 'ml-kmeans';
 import { FileService } from './file.service';
 
@@ -88,6 +88,8 @@ public async performKMeans(file: File, k: number, useOptK: boolean, distanceMetr
 
   this.data = await this.fileService.readFileData(file);
 
+  console.log(this.data);
+
   this.data = this.data.filter(row => row.some(value => value !== undefined && value !== ''));
 
 
@@ -99,7 +101,7 @@ public async performKMeans(file: File, k: number, useOptK: boolean, distanceMetr
 
 
   dataAsNumbers = this.cleanClusteringData(dataAsNumbers);
-
+  console.log(dataAsNumbers);
 
 
   if (useOptK) {
@@ -110,8 +112,9 @@ public async performKMeans(file: File, k: number, useOptK: boolean, distanceMetr
 
   const result = KMeans(dataAsNumbers, k, { distanceFunction: distanceMetric === 'EUCLIDEAN' ? this.euclideanDistance : this.manhattanDistance });
 
-
-
+  alert("Jetzt kommt result: " + result);
+  console.log(result);
+  console.log(this.convertToJSONFormat(result, dataAsNumbers, file.name, distanceMetric));
   return this.convertToJSONFormat(result, dataAsNumbers, file.name, distanceMetric);
 }
 
@@ -139,8 +142,6 @@ private convertToJSONFormat(result: any, data: number[][], fileName: string, dis
 
 
   return {
-    user_id: 0,
-    request_id: 0,
     name: `K-Means Ergebnis von: ${fileName}`,
     cluster: clusters,
     x_label: xLabel,

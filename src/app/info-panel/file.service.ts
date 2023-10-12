@@ -49,6 +49,7 @@ export class FileService {
         try {
           // Parse the file data based on the file type (e.g., CSV, JSON)
           const parsedData = this.parseFileData(event.target.result, file.type);
+          console.log(parsedData);
           resolve(parsedData);
         } catch (error) {
           reject(error);
@@ -81,10 +82,23 @@ export class FileService {
 
   // Example CSV parsing method (you may need a library for more complex cases)
   private parseCSV(data: string): any[] {
+    /*
     // Implement CSV parsing logic
     // Example: Split data by lines and commas
     const rows = data.split('\n');
     return rows.map((row) => row.split(',').map(cell => cell.trim())); 
+    */
+    const rows = data.split('\n');
+
+    // Check if the first row contains at least one number
+    const firstRowHasNumbers = rows[0].split(',').some(cell => !isNaN(Number(cell.trim())));
+
+    if (!firstRowHasNumbers) {
+        // Ignore the first row if it doesn't contain numbers
+        rows.shift();
+    }
+
+    return rows.map((row) => row.split(',').map(cell => cell.trim()));
   }
 
   // Example JSON parsing method (you may need a library for more complex cases)
