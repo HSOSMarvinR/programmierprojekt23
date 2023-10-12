@@ -4,10 +4,18 @@
         <h1>Ergebnis </h1>
     </header>
 
-    <p-card>
-        <div>
-            <canvas id="Chart">{{ chart }}</canvas>
-        </div>
-    </p-card>
+    <div #chartContainer>
+        <p-card>
+            <div>
+                <canvas id="Chart">{{ chart }}</canvas>
+            </div>
+        </p-card>    
+    </div>
+
+    <p>
+        <p-button label="Download JPEG" styleClass="p-button-rounded p-button-outlined p-button-success p-button-raised"
+            icon="pi pi-download" (onClick)="downloadChart()" ></p-button>
+    </p>
+    
 
 </div>
