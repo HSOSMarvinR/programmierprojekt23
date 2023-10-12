@@ -33,6 +33,7 @@ export class ChartsComponent implements OnInit, OnChanges {
     datasets: any = [];
 
     ngOnChanges(changes: SimpleChanges): void {
+        alert("Hallo");
         if (changes['apiResponse'].currentValue !== undefined) {
             console.log(this.apiResponse)
             this.sortedApiResponse = this.groupPointsByZentDimensions(this.apiResponse);
@@ -42,8 +43,8 @@ export class ChartsComponent implements OnInit, OnChanges {
             }
             this.renderChart()
         }
-        else if (changes['apiResponse'].currentValue !== undefined) {
-            alert("HAllo");
+        else if (changes['localResponse'].currentValue !== undefined) {
+            alert("Hallo");
             console.log("Test; " + this.localResponse)
             this.sortedLocalResponse = this.localResponse;
             //this.sortedLocalResponse = this.groupPointsByZentDimensions(this.localResponse);

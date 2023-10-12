@@ -113,10 +113,15 @@ export class InfoPanelComponent implements OnInit {
       // Assume you have a method to read data from the file
       this.fileService.readFileData(selectedFile).then((data: number[][]) => {
         // Perform local k-means calculation
-        //this.localResponse.emit(this.calculateKMeans(selectedFile, this.kvalue || 5, 100).body);
-        alert("VOR CALCULATE");
         console.log("localResponse: " + this.calculateKMeans(selectedFile, this.kvalue || 5, 100));
-        alert("NACH CALCULATE");
+        let response: any;
+        response = this.calculateKMeans(selectedFile, this.kvalue || 5, 100);
+        console.log(response);
+        console.log("--------");
+        console.log(response.__zone_symbol__value);
+        //this.localResponse.emit(this.calculateKMeans(selectedFile, this.kvalue || 5, 100).body);
+        this.localResponse.emit(response);
+        console.log("An Emit vorbei");
        // console.log('Local calculation result:', result);
         //alert("Local Calculation Result: " + JSON.stringify(result));
       });
@@ -222,10 +227,9 @@ export class InfoPanelComponent implements OnInit {
       // Erste Zeile löschen wegen Überschriften
    //   data.splice(0, 0)
      // data.splice(0, 1)
-      alert("VOR RESULT");
       const result = this.kmeansService.performKMeans(data, k, true, 'EUCLIDEAN' );
-      alert("NACH RESULT");
       console.log("Result: " + result)
+      return result;
     } catch (error) {
       alert("Es gab einen Error im calculateKMeans")
     }
