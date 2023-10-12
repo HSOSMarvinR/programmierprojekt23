@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, numberAttribute } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ApinewService } from "./apinew.service";
 import { FileService } from './file.service';
@@ -24,7 +24,7 @@ interface Distanz {
 })
 
 export class InfoPanelComponent implements OnInit {
-  useLocalCalculation: boolean = false; 
+  useLocalCalculation: boolean = false;
   csvDeciSepHTML: boolean = false;
   fileToUpload: File | null = null;
   uploadedFilesData: any[] = [];
@@ -88,7 +88,7 @@ export class InfoPanelComponent implements OnInit {
   }
 
   onClickPush() {
-    
+
     const useLocalCalculation = this.useLocalCalculation;
     const selectedFile = this.fileService.getMarkedFile(this.selectedFileIndex);
     const kValue = this.kvalue; // If kvalue is undefined, use default value
@@ -113,22 +113,20 @@ export class InfoPanelComponent implements OnInit {
       // Assume you have a method to read data from the file
       this.fileService.readFileData(selectedFile).then((data: number[][]) => {
         // Perform local k-means calculation
-        console.log("localResponse: " + this.calculateKMeans(selectedFile, this.kvalue || 5, 100));
         let response: any;
-        response = this.calculateKMeans(selectedFile, this.kvalue || 5, 100);
-        console.log(response);
-        console.log("--------");
-        console.log(response.__zone_symbol__value);
-        //this.localResponse.emit(this.calculateKMeans(selectedFile, this.kvalue || 5, 100).body);
-        this.localResponse.emit(response);
-        console.log("An Emit vorbei");
+        let secDistanz: number;
+        response = this.calculateKMeans(selectedFile, this.kvalue || 5, 100, this.selectedDistanz?.code);
+        response.then((response: any) => {
+          console.log("Response: ", response)
+          this.apiResponse.emit(response)
+        })
        // console.log('Local calculation result:', result);
         //alert("Local Calculation Result: " + JSON.stringify(result));
       });
 
-      
+
     }
-      
+
     else{
       if(this.selectedDistanz?.code == 1){
         this.ApinewService.runKMeansManhattan(selectedFile, {
@@ -161,7 +159,7 @@ export class InfoPanelComponent implements OnInit {
             console.log('API Error:', error);
             alert('API Error: ' + JSON.stringify(error));
           },
-        
+
         );
       }
       }
@@ -185,7 +183,7 @@ export class InfoPanelComponent implements OnInit {
       alert('No file selected for clustering.');
     }
   } */
-  
+
   onClickHistory() {
     this.fileService.deleteAllFiles;
     this.uploadedFilesData = [];
@@ -206,7 +204,7 @@ export class InfoPanelComponent implements OnInit {
       console.log(event.files);
     this.messageService.add({ severity: 'info', summary: 'Datei hochgeladen!' });
     this.berechnungOnOff = false;
-    
+
   }
 /*   onUpload(event: any) {
     for (let file of event.files) {
@@ -221,20 +219,23 @@ export class InfoPanelComponent implements OnInit {
     this.berechnungOnOff = false;
   } */
 
-  calculateKMeans(data: File, k: number,options: any): any {
-    
+  calculateKMeans(data: File, k: number,options: any, distanz: number | undefined): any {
+
     try {
-      // Erste Zeile löschen wegen Überschriften
-   //   data.splice(0, 0)
-     // data.splice(0, 1)
-      const result = this.kmeansService.performKMeans(data, k, true, 'EUCLIDEAN' );
-      console.log("Result: " + result)
-      return result;
+      if(distanz == 1){
+        const result = this.kmeansService.performKMeans(data, k, false, 'MANHATTEN' );
+        console.log("Result: " + result)
+        return result;
+      }else if(distanz == 2){
+        const result = this.kmeansService.performKMeans(data, k, false, 'EUCLIDEAN' );
+        console.log("Result: " + result)
+        return result;
+      }
     } catch (error) {
       alert("Es gab einen Error im calculateKMeans")
     }
-    
-    
+
+
   }
 
 }

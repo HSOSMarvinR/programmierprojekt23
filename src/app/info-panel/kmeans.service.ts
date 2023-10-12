@@ -19,7 +19,7 @@ export class KMeansService {
     );
   }
 
- 
+
 
   private manhattanDistance(pointA: number[], pointB: number[]): number {
     return pointA.reduce((sum, value, index) => sum + Math.abs(value - pointB[index]), 0);
@@ -35,7 +35,7 @@ export class KMeansService {
       const result = KMeans(data, i, { distanceFunction });
       let currentSSD = 0;
 
- 
+
 
       for (let j = 0; j < data.length; j++) {
         const centroid = result.centroids[result.clusters[j]];
@@ -47,7 +47,7 @@ export class KMeansService {
  // Calculate the rate of change of SSD (first derivative)
  const ratesOfChange = ssd.slice(1).map((value, index) => ssd[index] - value);
 
- 
+
 
  // Calculate the second derivative
  const secondDerivative = ratesOfChange.slice(1).map((value, index) => ratesOfChange[index] - value);
@@ -112,8 +112,6 @@ public async performKMeans(file: File, k: number, useOptK: boolean, distanceMetr
 
   const result = KMeans(dataAsNumbers, k, { distanceFunction: distanceMetric === 'EUCLIDEAN' ? this.euclideanDistance : this.manhattanDistance });
 
-  alert("Jetzt kommt result: " + result);
-  console.log(result);
   console.log(this.convertToJSONFormat(result, dataAsNumbers, file.name, distanceMetric));
   return this.convertToJSONFormat(result, dataAsNumbers, file.name, distanceMetric);
 }
