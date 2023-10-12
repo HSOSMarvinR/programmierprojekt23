@@ -84,7 +84,7 @@ export class FileService {
     // Implement CSV parsing logic
     // Example: Split data by lines and commas
     const rows = data.split('\n');
-    return rows.map((row) => row.split(','));
+    return rows.map((row) => row.split(',').map(cell => cell.trim())); 
   }
 
   // Example JSON parsing method (you may need a library for more complex cases)

@@ -43,7 +43,7 @@ export class ChartsComponent implements OnInit, OnChanges {
             this.renderChart()
         }
         else if (changes['localResponse'].currentValue !== undefined) {
-            console.log(this.localResponse)
+            console.log("Test; " + this.localResponse)
             this.sortedLocalResponse = this.groupPointsByZentDimensions(this.localResponse);
             this.generateDatasets()
             if (this.chart) {

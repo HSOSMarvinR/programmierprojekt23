@@ -3,6 +3,9 @@ import { MessageService } from 'primeng/api';
 import { ApinewService } from "./apinew.service";
 import { FileService } from './file.service';
 import { LocalcalculationService } from './localcalculation.service';
+import { KMeansService } from './kmeans.service';
+
+
 interface Normalisierung {
   name: string;
   code: number;
@@ -48,7 +51,7 @@ export class InfoPanelComponent implements OnInit {
     private ApinewService: ApinewService,
     private fileService: FileService,
     private localCalculationService: LocalcalculationService,
-    
+    private kmeansService: KMeansService
   ) {}
 
   ngOnInit(): void {
@@ -113,7 +116,7 @@ export class InfoPanelComponent implements OnInit {
 
         this.localResponse.emit(data);
         
-        console.log( this.calculateKMeans(data, this.kvalue || 5, 100));
+        console.log( this.calculateKMeans(selectedFile, this.kvalue || 5, 100));
 
        // console.log('Local calculation result:', result);
         //alert("Local Calculation Result: " + JSON.stringify(result));
@@ -214,16 +217,15 @@ export class InfoPanelComponent implements OnInit {
     this.berechnungOnOff = false;
   } */
 
-  calculateKMeans(data: number[][], k: number,options: any): any {
+  calculateKMeans(data: File, k: number,options: any): any {
     
     try {
       // Erste Zeile löschen wegen Überschriften
-      data.splice(0, 0)
-      data.splice(0, 1)
+   //   data.splice(0, 0)
+     // data.splice(0, 1)
 
-      const result = this.localCalculationService.kmeans(data, k);
-      console.log('Zentroiden: ' + result.centroids);
-      console.log('Cluster: ' + result.clusters);
+      const result = this.kmeansService.performKMeans(data, k, true, 'EUCLIDEAN' );
+      console.log("Result: " + result)
    
     } catch (error) {
       alert("Es gab einen Error im calculateKMeans")
