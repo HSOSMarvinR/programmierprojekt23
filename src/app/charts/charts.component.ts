@@ -34,21 +34,26 @@ export class ChartsComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['apiResponse'].currentValue !== undefined) {
-            console.log(this.apiResponse)
-            this.sortedApiResponse = this.groupPointsByZentDimensions(this.apiResponse);
-            this.generateDatasets()
-            if (this.chart) {
-                this.chart.destroy()
+
+            if (this.apiResponse.cluster) {
+                console.log(this.apiResponse)
+                this.sortedLocalResponse = this.apiResponse;
+                this.generateLocalDatasets()
+                if (this.chart) {
+                    this.chart.destroy()
+                }
+                this.renderChart()
             }
-            this.renderChart()
-        }
-        else if (changes['localResponse'].currentValue !== undefined) {
-            console.log(this.localResponse)
-            this.sortedLocalResponse = this.groupPointsByZentDimensions(this.localResponse);
-            this.generateDatasets()
-            if (this.chart) {
-                this.chart.destroy()
+            else {
+                console.log(this.apiResponse)
+                this.sortedApiResponse = this.groupPointsByZentDimensions(this.apiResponse);
+                this.generateAPIDatasets()
+                if (this.chart) {
+                  this.chart.destroy()
+                }
+                this.renderChart()
             }
+
         }
     }
 
@@ -100,7 +105,6 @@ export class ChartsComponent implements OnInit, OnChanges {
 
 
     renderChart() {
-        console.log(this.datasets)
         this.chart = new Chart('Chart', {
             type: 'scatter',
             data: {
@@ -121,10 +125,11 @@ export class ChartsComponent implements OnInit, OnChanges {
         })
     }
 
-    generateDatasets(): void {
+    generateAPIDatasets(): void {
         this.datasets = []
         const centroids: any[] = []
         const clusterArray: any[] = []
+        console.log("sortedApiResponse",this.sortedApiResponse)
         this.sortedApiResponse.map((cluster: any) => {
             const dataset: any = {
                 label: 'Cluster',
@@ -133,7 +138,7 @@ export class ChartsComponent implements OnInit, OnChanges {
                     xAxisKey: 'PunktDimension0',
                     yAxisKey: 'PunktDimension1',
                 }
-            } 
+            }
             let centroid = {
                 'PunktDimension0': cluster.ZentDimension0,
                 'PunktDimension1': cluster.ZentDimension1
@@ -158,4 +163,31 @@ export class ChartsComponent implements OnInit, OnChanges {
         console.log(this.datasets)
     }
 
+    generateLocalDatasets (): void {
+        this.datasets = []
+        const centroids: any[] = []
+        const clusterArray: any[] = []
+        // eslint-disable-next-line array-callback-return
+        this.sortedLocalResponse.cluster.map((cluster: any) => {
+          const dataset: any = {
+            label: 'Cluster ' + (cluster.clusterNr + 1),
+            data: cluster.points
+          }
+          centroids.push(cluster.centroid)
+          clusterArray.push(dataset)
+        })
+        const centroidDataset: any = {
+          label: 'Centroids',
+          data: centroids,
+          pointStyle: 'rectRot',
+          radius: 10
+        }
+        this.datasets.push(centroidDataset)
+        // eslint-disable-next-line array-callback-return
+        clusterArray.map(cluster => {
+          this.datasets.push(cluster)
+        })
+      }
+
 }
+ 
