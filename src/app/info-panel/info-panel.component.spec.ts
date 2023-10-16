@@ -6,6 +6,7 @@ describe('InfoPanelComponent', () => {
   let component: InfoPanelComponent;
   let fixture: ComponentFixture<InfoPanelComponent>;
 
+  // Vorbereitung vor jedem Testfall
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [InfoPanelComponent]
@@ -15,6 +16,7 @@ describe('InfoPanelComponent', () => {
     fixture.detectChanges();
   });
 
+  // Testfall: Überprüft, ob das Komponenten-Objekt erstellt wurde
   it('should create', () => {
     expect(component).toBeTruthy();
   });

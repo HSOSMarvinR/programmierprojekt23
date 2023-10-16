@@ -1,109 +1,105 @@
 <div class="card flex justify-content-center ">
-
+    <!-- Überschrift für die Seite -->
     <header>
         <h1>K-Means Clustering</h1>
-      </header>
+    </header>
 
-        <p class="m-0">
-            Auf dieser Seite hast du die Möglichkeit, ein K-Means Clustering deiner Daten durchzuführen.<br>
-            Lade dazu über den Upload-Button eine CSV Datei hoch.
-        </p>
-
-
-        <p-toast></p-toast>
-        <!--Die URL muss ersetzt werden durch die URL an die die hochgeladene Datei gesendet werden soll im Backend oder bei uns.-->
-        <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" [fileLimit]="1"
-            (onUpload)="onUpload($event)" [multiple]="true"
-            accept="image/png, text/csv, application/json, application/vnd.ms-excel">
-
-            <ng-template pTemplate="content">
-                <div class="py-3"><br>Drag & Drop oder Datei auswählen</div>
-                <ul *ngIf="uploadedFiles.length">
-                    <div class="py-4"><br>Upload Historie:</div>
-                    <table style="width: 100%;">
-                        <thead>
-                            <tr>
-                                <th style="width: 50%; text-align: left;">Datei</th>
-                                <th style="width: 30%; text-align: left;">Größe</th>
-                                <th style="width: 20%; text-align: left;">Aktionen</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let file of uploadedFilesData; let i = index"
-                                [ngStyle]="{'background-color': selectedFileIndex === i ? 'lightblue' : ''}">
-                                <td>{{ file.name }}</td>
-                                <td>{{ file.size }} bytes</td>
-                                <td>
-                                    <p-button (click)="selectFile(i)" label="Auswählen"
-                                            [ngClass]="{'p-button-danger': selectedFileIndex === i, 'p-button-rounded': true}"
-                                            [disabled]="selectedFileIndex === i">
-                                    </p-button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p-button (click)="onClickHistory()" label="Historie löschen" icon="pi pi-times"
-                        styleClass="p-button-rounded p-button-danger"></p-button>
-                </ul>
-            </ng-template>
-        </p-fileUpload>
-
-        <br>
-        <p class="m-1">
-            Bitte wähle eine Normalisierungs-Methode.
-        </p>
-        <div class="card flex justify-content-center">
-            <p-dropdown [options]="normalisierung" [(ngModel)]="selectedNorm" optionLabel="name"
-                placeholder="Min / Max Normalisierung"></p-dropdown>
-        </div>
+    <!-- Einleitungstext für die Seite -->
+    <p class="m-0">
+        Auf dieser Seite hast du die Möglichkeit, ein K-Means Clustering deiner Daten durchzuführen.<br>
+        Lade dazu über den Upload-Button eine CSV Datei hoch.
+    </p>
 
 
-        <br>
-        <p class="m-2">
-            Bitte wähle eine deinen Wert für K.
-            Bei keiner Auswahl wird der bestmögliche K Wert berechnet.
-        </p>
-        <div class="flex-auto">
-            <label class="mb-2 block font-bold" for="minmax-buttons"></label>
-            <p-inputNumber [(ngModel)]="kvalue" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="1"
-                placeholder="K"> </p-inputNumber>
-        </div>
+    <p-toast></p-toast>
+    <!-- Platz für Toast-Nachrichten -->
 
-        <br>
-        <p class="m-1">
-            Bitte wähle eine Distanz-Matrix.
-        </p>
+    <!-- File Upload-Komponente -->
+    <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" [fileLimit]="1"
+        (onUpload)="onUpload($event)" [multiple]="true"
+        accept="image/png, text/csv, application/json, application/vnd.ms-excel">
 
-        <div class="card flex justify-content-center">
 
-            <p-dropdown [options]="distanz" [(ngModel)]="selectedDistanz" optionLabel="name"></p-dropdown>
+        <ng-template pTemplate="content">
+            <div class="py-3"><br>Drag & Drop oder Datei auswählen</div>
 
-        </div>
-        <br>
+            <ul *ngIf="uploadedFiles.length">
+                <!-- Historie der hochgeladenen Dateien -->
+                <div class="py-4"><br>Upload Historie:</div>
 
-        <p>
-            <input type="checkbox" [(ngModel)]="csvDeciSepHTML" id="csvDeciSepHTML">
-            <label for="csvDeciSepHTML">US Dateiformat?</label>  
-        </p>
+                <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="width: 50%; text-align: left;">Datei</th>
+                            <th style="width: 30%; text-align: left;">Größe</th>
+                            <th style="width: 20%; text-align: left;">Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Tabelle für hochgeladene Dateien -->
+                        <tr *ngFor="let file of uploadedFilesData; let i = index"
+                            [ngStyle]="{'background-color': selectedFileIndex === i ? 'lightblue' : ''}">
+                            <td>{{ file.name }}</td>
+                            <td>{{ file.size }} bytes</td>
+                            <td>
+                                <p-button (click)="selectFile(i)" label="Auswählen"
+                                    [ngClass]="{'p-button-danger': selectedFileIndex === i, 'p-button-rounded': true}"
+                                    [disabled]="selectedFileIndex === i">
+                                </p-button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p-button (click)="onClickHistory()" label="Historie löschen" icon="pi pi-times"
+                    styleClass="p-button-rounded p-button-danger"></p-button>
+            </ul>
+        </ng-template>
+    </p-fileUpload>
 
-        <div class="flex-container">
-       <!--  <p-button (onClick)="onClickPush()" label="Berechnung starten..." icon="pi pi-telegram"
-            styleClass="p-button-raised p-button-help" [disabled]="berechnungOnOff" class="flex-item-1"></p-button>
-            <br>
-             <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary" class="flex-item-2"></p-checkbox> 
+    <p class="m-1">
+        Bitte wähle eine Normalisierungs-Methode.
+    </p>
 
-            <p-checkbox [(ngModel)]="useLocalCalculation" inputId="localCalculation"></p-checkbox>
-            <label for="localCalculation">Lokale Berechnung</label>
-        </div> -->
-        
+    <!-- Dropdown für die Normalisierungsoptionen -->
+    <div class="card flex justify-content-center">
+        <p-dropdown [options]="normalisierung" [(ngModel)]="selectedNorm" optionLabel="name"
+            placeholder="Min / Max Normalisierung"></p-dropdown>
+    </div>
+
+    <p class="m-2">
+        Bitte wähle eine deinen Wert für K.
+        Bei keiner Auswahl wird der bestmögliche K Wert berechnet.
+    </p>
+    <!-- Eingabefeld für den K-Wert -->
+    <div class="flex-auto">
+        <label class="mb-2 block font-bold" for="minmax-buttons"></label>
+        <p-inputNumber [(ngModel)]="kvalue" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="1"
+            placeholder="K"> </p-inputNumber>
+    </div>
+
+    <p class="m-1">
+        Bitte wähle eine Distanz-Matrix.
+    </p>
+    <!-- Dropdown für die Distanzoptionen -->
+    <div class="card flex justify-content-center">
+        <p-dropdown [options]="distanz" [(ngModel)]="selectedDistanz" optionLabel="name"></p-dropdown>
+    </div>
+
+    <br>
+    <!-- Checkbox für das Dateiformat -->
+    <p>
+        <input type="checkbox" [(ngModel)]="csvDeciSepHTML" id="csvDeciSepHTML">
+        <label for="csvDeciSepHTML">US Dateiformat?</label>
+    </p>
+
+    <div class="flex-container">
+        <!-- Checkbox für lokale Berechnung -->
         <input type="checkbox" [(ngModel)]="useLocalCalculation" id="localCalculation">
         <label for="localCalculation">Lokale Berechnung</label>
-        <!-- Existing elements for file upload, K value, etc. -->
-        <!-- ... -->
-        
+
+        <!-- Button zum Starten der Berechnung -->
         <p-button id='B_BerechnungStarten' (onClick)="onClickPush()" label="Berechnung starten..." icon="pi pi-telegram"
             styleClass="p-button-raised p-button-help" [disabled]="berechnungOnOff"></p-button>
-
-
+    </div>
 
 </div>

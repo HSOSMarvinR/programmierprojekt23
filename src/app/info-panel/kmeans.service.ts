@@ -13,6 +13,7 @@ export class KMeansService {
   data: string[][] = [];
   clusters: any[] = [];
 
+    // Funktion zur Berechnung der euklidischen Distanz
   private euclideanDistance(pointA: number[], pointB: number[]): number {
     return Math.sqrt(
       pointA.reduce((sum, value, index) => sum + Math.pow(value - pointB[index], 2), 0)
@@ -20,12 +21,13 @@ export class KMeansService {
   }
 
 
-
+  // Funktion zur Berechnung der Manhattan-Distanz
   private manhattanDistance(pointA: number[], pointB: number[]): number {
     return pointA.reduce((sum, value, index) => sum + Math.abs(value - pointB[index]), 0);
   }
 
 
+    // Methode zur Anwendung des 'Elbow Method' Algorithmus
   private elbowMethod(data: number[][], maxClusters: number, distanceMetric: string): number {
     const ssd: number[] = []; // Sum of Squared Distances for different cluster numbers
     const distanceFunction = distanceMetric === 'EUCLIDEAN' ? this.euclideanDistance : this.manhattanDistance;
@@ -44,46 +46,40 @@ export class KMeansService {
       ssd.push(currentSSD);
 
     }
- // Calculate the rate of change of SSD (first derivative)
+ // Änderungsrate von SSD (erste Ableitung) berechnen
  const ratesOfChange = ssd.slice(1).map((value, index) => ssd[index] - value);
 
 
 
- // Calculate the second derivative
+ // Zweite Ableitung berechnen
  const secondDerivative = ratesOfChange.slice(1).map((value, index) => ratesOfChange[index] - value);
 
 
 
- // Find the index of the maximum value in the second derivative
+ // Index des Maximalwerts in der zweiten Ableitung finden
  const elbowPoint = secondDerivative.indexOf(Math.max(...secondDerivative));
 
 
-
- // Convert SSD values to an array of x and y coordinates
- // const coordinates = ssd.map((value, index) => ({ x: index + 1, y: value }));
-
-
-
- // Return the optimal number of clusters
- return elbowPoint + 2; // +2 because the index is 0-based and we started from k=1
+ // Optimale Anzahl Cluster zurückgeben
+ return elbowPoint + 2; 
 
 }
-
+  // Funktion zum Bereinigen der Clustering-Daten
 private cleanClusteringData(dataAsNumbers: number[][]): number[][] {
-  // Filter out all invalid arrays
   const filteredData = dataAsNumbers.filter(row => {
     return row.every(value => !isNaN(value));
   });
 
 
 
-  // Check if more than 25% of the arrays have been removed
+  // Überprüfen, ob mehr als 25 % der Arrays entfernt wurden
   if (filteredData.length < dataAsNumbers.length * 0.75) {
     throw new Error('Mehr als 25% der Daten sind ungültig.');
   }
   return filteredData;
 }
 
+  // Methode zur Durchführung des K-Means-Clustering
 public async performKMeans(file: File, k: number, useOptK: boolean, distanceMetric: string): Promise<any> {
 
   this.data = await this.fileService.readFileData(file);
@@ -116,6 +112,7 @@ public async performKMeans(file: File, k: number, useOptK: boolean, distanceMetr
   return this.convertToJSONFormat(result, dataAsNumbers, file.name, distanceMetric);
 }
 
+  // Funktion zur Konvertierung des Ergebnisses in das JSON-Format
 private convertToJSONFormat(result: any, data: number[][], fileName: string, distanceMetric: string) {
   if (this.data.length === 0 || this.data[0].length < 2) {
     console.error('Invalid CSV data format');

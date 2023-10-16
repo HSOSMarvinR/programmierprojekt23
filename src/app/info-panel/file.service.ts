@@ -4,32 +4,40 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class FileService {
-  private uploadedFiles: File[] = [];
-  private fileToUpload: File | null = null;
+  // Dieser Service verwaltet hochgeladene Dateien
+
+  private uploadedFiles: File[] = []; // Array zur Speicherung hochgeladener Dateien
+  private fileToUpload: File | null = null; // Ausgewählte Datei zum Hochladen
 
   addFile(file: File) {
-    this.uploadedFiles.unshift(file);
+    // Methode zum Hinzufügen einer Datei zum Array
+    this.uploadedFiles.unshift(file); // Neue Datei wird am Anfang des Arrays hinzugefügt
   }
 
   getFiles(): File[] {
-    return this.uploadedFiles;
+    // Methode zum Abrufen der hochgeladenen Dateien
+    return this.uploadedFiles; // Gibt das Array mit den hochgeladenen Dateien zurück
   }
 
   getMarkedFile(i: number): File | null {
+    // Methode zum Abrufen einer ausgewählten Datei
     if (this.uploadedFiles.length > 0) {
       this.fileToUpload = this.uploadedFiles[i];
-      return this.fileToUpload;
+      return this.fileToUpload; // Gibt die ausgewählte Datei zurück
     }
-    return null;
+    return null; // Gibt null zurück, wenn keine Datei ausgewählt wurde
   }
+
   deleteFile(index: number) {
-    this.uploadedFiles.splice(index, 1);
+    // Methode zum Löschen einer Datei
+    this.uploadedFiles.splice(index, 1); // Entfernt die Datei aus dem Array
   }
 
   deleteAllFiles(){
-    this.uploadedFiles = [];
-    alert("hallo" + this.uploadedFiles.toLocaleString);
+    // Methode zum Löschen aller Dateien
+    this.uploadedFiles = []; // Setzt das Array zurück, um alle Dateien zu löschen
   }
+
   performLocalCalculation(file: File, options?: {
     k?: number,
     normMethod?: string,
@@ -38,16 +46,17 @@ export class FileService {
     minPctElbow?: number,
     c?: number,
   }){
-    
+   
   }
-  // Method to read file data and parse it
+
   public readFileData(file: File): Promise<any> {
+    // Methode zum Lesen von Dateidaten
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
 
       reader.onload = (event: any) => {
         try {
-          // Parse the file data based on the file type (e.g., CSV, JSON)
+// Parse the file data based on the file type (e.g., CSV, JSON)
           const parsedData = this.parseFileData(event.target.result, file.type);
           console.log(parsedData);
           resolve(parsedData);
@@ -60,52 +69,40 @@ export class FileService {
         reject(error);
       };
 
-      // Read the file as text
+// Read the file as text
       reader.readAsText(file);
     });
   }
 
-  // Method to parse file data based on file type
   private parseFileData(data: string, fileType: string): any {
+    // Methode zum Parsen von Dateidaten basierend auf dem Dateityp
     switch (fileType) {
       case 'text/csv':
-        // Implement CSV parsing logic
-        return this.parseCSV(data);
+        return this.parseCSV(data); // CSV-Daten parsen
       case 'application/json':
-        // Implement JSON parsing logic
-        return this.parseJSON(data);
-      // Add more cases as needed for other file types
+        return this.parseJSON(data); // JSON-Daten parsen
       default:
         throw new Error(`Unsupported file type: ${fileType}`);
     }
   }
 
-  // Example CSV parsing method (you may need a library for more complex cases)
   private parseCSV(data: string): any[] {
-    /*
-    // Implement CSV parsing logic
-    // Example: Split data by lines and commas
-    const rows = data.split('\n');
-    return rows.map((row) => row.split(',').map(cell => cell.trim())); 
-    */
+    // Methode zum Parsen von CSV-Daten
     const rows = data.split('\n');
 
-    // Check if the first row contains at least one number
+// Überprüfenn, ob die erste Zeile mindestens eine Zahl enthält
     const firstRowHasNumbers = rows[0].split(',').some(cell => !isNaN(Number(cell.trim())));
 
     if (!firstRowHasNumbers) {
-        // Ignore the first row if it doesn't contain numbers
+// Erste Zeile ignorieren, wenn sie keine Zahl enthält
         rows.shift();
     }
 
     return rows.map((row) => row.split(',').map(cell => cell.trim()));
   }
 
-  // Example JSON parsing method (you may need a library for more complex cases)
   private parseJSON(data: string): any {
-    // Implement JSON parsing logic
+    // Methode zum Parsen von JSON-Daten
     return JSON.parse(data);
   }
-
-
 }

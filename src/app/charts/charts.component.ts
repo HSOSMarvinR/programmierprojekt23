@@ -22,20 +22,31 @@ interface GroupedPoints {
     styleUrls: ['./charts.component.css']
 })
 export class ChartsComponent implements OnInit, OnChanges {
+    // Deklaration von Klassenvariablen und Interfaces
+
     @ViewChild('chartContainer') chartContainer!: ElementRef;
+    // Referenz zum HTML-Element "chartContainer"
+
     data: any;
     options: any;
     @Input() apiResponse: any;
+    // Eingangsparameter apiResponse
+
     sortedApiResponse: any;
     @Input() localResponse: any;
+    // Eingangsparameter localResponse
+
     sortedLocalResponse: any;
     public chart: any;
     datasets: any = [];
 
+    // Event-Handler für Änderungen
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['apiResponse'].currentValue !== undefined) {
+            // Wenn sich der Eingangsparameter apiResponse geändert hat
 
             if (this.apiResponse.cluster) {
+                // Wenn die apiResponse Clusterinformationen enthält
                 console.log(this.apiResponse)
                 this.sortedLocalResponse = this.apiResponse;
                 this.generateLocalDatasets()
@@ -45,11 +56,12 @@ export class ChartsComponent implements OnInit, OnChanges {
                 this.renderChart()
             }
             else {
+                // Wenn apiResponse keine Clusterinformationen enthält
                 console.log(this.apiResponse)
                 this.sortedApiResponse = this.groupPointsByZentDimensions(this.apiResponse);
                 this.generateAPIDatasets()
                 if (this.chart) {
-                  this.chart.destroy()
+                    this.chart.destroy()
                 }
                 this.renderChart()
             }
@@ -61,6 +73,7 @@ export class ChartsComponent implements OnInit, OnChanges {
 
     }
 
+    // Funktion zum Herunterladen des Charts als JPEG
     downloadChart() {
         const chartContainerElement = this.chartContainer.nativeElement;
 
@@ -78,6 +91,7 @@ export class ChartsComponent implements OnInit, OnChanges {
         });
     }
 
+    // Funktion zum Gruppieren von Punkten nach Zentroid-Dimensionen
     groupPointsByZentDimensions(data: any): GroupedPoints[] {
         const groupedPointsMap = new Map<string, GroupedPoints>();
 
@@ -103,7 +117,7 @@ export class ChartsComponent implements OnInit, OnChanges {
         return groupedPoints;
     }
 
-
+    // Funktion zum Rendern des Charts
     renderChart() {
         this.chart = new Chart('Chart', {
             type: 'scatter',
@@ -129,7 +143,7 @@ export class ChartsComponent implements OnInit, OnChanges {
         this.datasets = []
         const centroids: any[] = []
         const clusterArray: any[] = []
-        console.log("sortedApiResponse",this.sortedApiResponse)
+        console.log("sortedApiResponse", this.sortedApiResponse)
         this.sortedApiResponse.map((cluster: any) => {
             const dataset: any = {
                 label: 'Cluster',
@@ -163,31 +177,28 @@ export class ChartsComponent implements OnInit, OnChanges {
         console.log(this.datasets)
     }
 
-    generateLocalDatasets (): void {
+    generateLocalDatasets(): void {
         this.datasets = []
         const centroids: any[] = []
         const clusterArray: any[] = []
-        // eslint-disable-next-line array-callback-return
         this.sortedLocalResponse.cluster.map((cluster: any) => {
-          const dataset: any = {
-            label: 'Cluster ' + (cluster.clusterNr + 1),
-            data: cluster.points
-          }
-          centroids.push(cluster.centroid)
-          clusterArray.push(dataset)
+            const dataset: any = {
+                label: 'Cluster ' + (cluster.clusterNr + 1),
+                data: cluster.points
+            }
+            centroids.push(cluster.centroid)
+            clusterArray.push(dataset)
         })
         const centroidDataset: any = {
-          label: 'Centroids',
-          data: centroids,
-          pointStyle: 'rectRot',
-          radius: 10
+            label: 'Centroids',
+            data: centroids,
+            pointStyle: 'rectRot',
+            radius: 10
         }
         this.datasets.push(centroidDataset)
-        // eslint-disable-next-line array-callback-return
         clusterArray.map(cluster => {
-          this.datasets.push(cluster)
+            this.datasets.push(cluster)
         })
-      }
+    }
 
 }
- 

@@ -1,8 +1,21 @@
+<!-- HTML-Element vom Typ "p-card" mit der ID "wrapper" und einer angegebenen Breite von 100% -->
 <p-card id="wrapper" [style]="{ width: '100%' }">
+
+  <!-- Container mit ID "wrapper" -->
   <div id="wrapper">
 
-    <div id="first" style="width: 50%;"><app-info-panel (apiResponse)="handleApiResponse($event)" (localResponse)="handleLocalResponse($event)"></app-info-panel></div>
-    <div id="second" style="width: 50%;"><app-charts [apiResponse]="apiResponse" [localResponse]="localResponse"></app-charts></div>
+    <!-- Erstes Kind-Element mit der ID "first" und einer angegebenen Breite von 50% -->
+    <div id="first" style="width: 50%;">
+      <!-- Ein benutzerdefiniertes Angular-Komponente namens "app-info-panel" -->
+      <app-info-panel (apiResponse)="handleApiResponse($event)" (localResponse)="handleLocalResponse($event)"></app-info-panel>
+    </div>
+
+    <!-- Zweites Kind-Element mit der ID "second" und einer angegebenen Breite von 50% -->
+    <div id="second" style="width: 50%;">
+      <!-- Ein benutzerdefiniertes Angular-Komponente namens "app-charts" -->
+      <app-charts [apiResponse]="apiResponse" [localResponse]="localResponse"></app-charts>
+    </div>
 
   </div>
+
 </p-card>

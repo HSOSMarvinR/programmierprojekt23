@@ -1,4 +1,7 @@
+/* Definiert eine CSS-Regel für das Element mit der ID "wrapper" */
 #wrapper {
-    display: flex;
-    gap: 1%;
-  }
+  /* Setzt den Display-Stil auf Flexbox */
+  display: flex;
+  /* Legt den Abstand zwischen den flexiblen Elementen fest */
+  gap: 1%;
+}
