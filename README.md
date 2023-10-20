@@ -1,6 +1,9 @@
 # Programmierprojekt23 Dokumentation
 
 ## Einleitung
+### Lokale Ausführung des Programms
+
+Um das Programm lokal auszuführen muss das Git repository zuerst heruntergeladen werden. Um die Anwendung auszuführen, müssen zuerst die Dependencys geladen werden. Hierfür wird Node.js benötigt. Im Node.js Terminal muss man dann in den Projektordner navigieren und den Befehl 'npm install' ausführen. Sind alle Dependencies geladen kann mit 'ng serve' die Anwendung gestartet werden. Standardmäßig wird die Anwendung unter localhost:8080 gestartet. 
 
 ### Projektbeschreibung
 
