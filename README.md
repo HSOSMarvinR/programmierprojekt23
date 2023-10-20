@@ -15,7 +15,7 @@ Der Nutzer soll darüber hinaus die Möglichkeit haben, das Diagramm herunterzul
 - Frage: K-Means oder Entscheidungsbäume?
    - K-Means
 - Frage: Welche Dateiformate als Input?
-   - Zunächst nur CSV und XLSX. Je nach Aufwand könnten später weitere hinzugefügt werden.
+   - Nur CSV-Datei. Entweder separiert mit Punkt oder mit Komma
 
 ## Funktionen
 
@@ -25,8 +25,6 @@ Der Nutzer soll darüber hinaus die Möglichkeit haben, das Diagramm herunterzul
 - Normalisierung der Daten mit der Min-Max-, oder der Z-Normalisierung
 - Vorgabe von einem K oder automatische Bestimmung des beste Ks durch die Elbow-Methode
 - Wahl zwischen den Distanzmatrzien der Manhattan Distanz oder der euklidischen Distanz
- 
-## Starten der Anwendung
 
 ## Technologien
 
