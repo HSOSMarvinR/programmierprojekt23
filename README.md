@@ -15,7 +15,7 @@ Der Nutzer soll darüber hinaus die Möglichkeit haben, das Diagramm herunterzul
 - Frage: K-Means oder Entscheidungsbäume?
    - K-Means
 - Frage: Welche Dateiformate als Input?
-   - Nur CSV-Datei. Entweder separiert mit Punkt oder mit Komma
+   - Nur das CSV-Dateiformat. Entweder separiert mit Punkt oder mit Komma
 
 ## Funktionen
 
